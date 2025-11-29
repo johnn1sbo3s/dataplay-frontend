@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # 1. O Banco de Dados
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: meu_usuario
+      POSTGRES_PASSWORD: minha_senha_segura
+      POSTGRES_DB: apostas_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # IMPORTANTE: Isso salva os dados se o container reiniciar
+    ports:
+      - "5433:5432" # Opcional: Só libere se você quiser acessar o banco direto do seu PC de casa (use firewall!)
+
+  # 2. O Site Nuxt + API
+  app:
+    build: . # Vai procurar um Dockerfile na pasta atual
+    restart: always
+    ports:
+      - "3000:3000" # O site vai rodar na porta 3000 do servidor
+    environment:
+      # Atenção aqui: o host não é 'localhost', é o nome do serviço acima: 'db'
+      DATABASE_URL: "postgresql://meu_usuario:minha_senha_segura@db:5432/apostas_db"
+      API_SECRET: "sua_chave_secreta_para_o_scraper"
+      NUXT_HOST: "0.0.0.0"
+      NUXT_PORT: "3000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

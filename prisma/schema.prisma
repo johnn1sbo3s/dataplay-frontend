@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  teamFqn String @id @map("team_fqn")
+  name String
+
+  homeFixtures Fixture[] @relation("HomeTeam")
+  awayFixtures Fixture[] @relation("AwayTeam")
+
+  @@map("teams")
+}
+
+model Fixture {
+  id Int @id @default(autoincrement())
+  flashscoreId String? @map("flashscore_id")
+  fixtureFqn String @unique @map("fixture_fqn")
+
+  date DateTime
+
+  league String? @map("league")
+
+  homeTeamFqn String @map("home_team_fqn")
+  homeTeam     Team   @relation("HomeTeam", fields: [homeTeamFqn], references: [teamFqn])
+
+  awayTeamFqn String @map("away_team_fqn")
+  awayTeam     Team   @relation("AwayTeam", fields: [awayTeamFqn], references: [teamFqn])
+
+  scoreHomeFt Int? @map("score_home_ft")
+  scoreAwayFt Int? @map("score_away_ft")
+  scoreHomeHt Int? @map("score_home_ht")
+  scoreAwayHt Int? @map("score_away_ht")
+
+  odds    Odds[]
+  bets    Bet[]
+
+  @@map("fixtures")
+}
+
+model Odds {
+  id        Int      @id @default(autoincrement())
+  timestamp DateTime @default(now())
+
+  fixtureFqn String     @map("fixture_fqn")
+  fixture   Fixture @relation(fields: [fixtureFqn], references: [fixtureFqn])
+
+  homeOdds Float  @map("home_odds")
+  drawOdds Float  @map("draw_odds")
+  awayOdds Float  @map("away_odds")
+  over25Odds Float? @map("over_25_odds")
+  under25Odds Float? @map("under_25_odds")
+  bttsYesOdds Float? @map("btts_yes_odds")
+  bttsNoOdds Float? @map("btts_no_odds")
+  homeClosingOdds Float? @map("home_closing_odds")
+  drawClosingOdds Float? @map("draw_closing_odds")
+  awayClosingOdds Float? @map("away_closing_odds")
+
+  @@map("odds")
+}
+
+model Bet {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  fixtureFqn String     @map("fixture_fqn")
+  fixture   Fixture @relation(fields: [fixtureFqn], references: [fixtureFqn])
+
+  modelName  String @map("model_name")
+  model      BetModel @relation(fields: [modelName], references: [name])
+
+  isValidationBet Boolean @map("is_validation_bet")
+  outcome String @map("outcome")
+
+  @@map("bets")
+}
+
+model BetModel {
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  isActive Boolean @default(true)
+
+  bets Bet[]
+
+  @@map("bet_models")
+}
