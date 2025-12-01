@@ -1,8 +1,10 @@
-import { BetModelService } from '../../utils/services/betModelService'
+import { BetType } from '@prisma/client'
 import { z } from 'zod'
+import { BetModelService } from '../../utils/services/betModelService'
 
 const betModelSchema = z.object({
   name: z.string().min(1).max(50),
+  betType: z.enum([BetType.BACK, BetType.LAY]),
   isActive: z.boolean().default(true)
 })
 

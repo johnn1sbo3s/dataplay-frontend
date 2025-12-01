@@ -1,7 +1,9 @@
+import type { BetType } from '@prisma/client'
 import { prisma } from '../prisma'
 
 interface CreateBetModelDTO {
   name: string
+  betType: BetType
   isActive: boolean
 }
 
@@ -21,10 +23,12 @@ export const BetModelService = {
             name: model.name
           },
           update: {
+            betType: model.betType,
             isActive: model.isActive
           },
           create: {
             name: model.name,
+            betType: model.betType,
             isActive: model.isActive
           }
         })
