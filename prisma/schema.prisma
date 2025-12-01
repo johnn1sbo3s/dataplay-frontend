@@ -75,7 +75,7 @@ model Bet {
   model      BetModel @relation(fields: [modelName], references: [name])
 
   isValidationBet Boolean @map("is_validation_bet")
-  outcome String @map("outcome")
+  outcome String? @map("outcome")
 
   @@map("bets")
 }
@@ -84,7 +84,7 @@ model BetModel {
   id Int @id @default(autoincrement())
 
   name String @unique
-  isActive Boolean @default(true)
+  isActive Boolean @default(true) @map("is_active")
 
   bets Bet[]
 
