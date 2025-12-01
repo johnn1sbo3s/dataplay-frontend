@@ -1,0 +1,53 @@
+{
+    // ========== Geral do editor ==========
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.rulers": [
+        100,
+        120
+    ],
+    "editor.formatOnSave": false,
+    // ========== ESLint ==========
+    "eslint.enable": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "json",
+        "jsonc",
+        "markdown"
+    ],
+    "editor.codeActionsOnSave": {
+        // "source.fixAll.eslint": "explicit"
+    },
+    // ========== Organização de imports ==========
+    // Aqui vamos usar o próprio VS Code/TS para organizar imports ao salvar
+    "[javascript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[vue]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[json]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    },
+    "[jsonc]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
+    }
+}
