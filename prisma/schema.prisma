@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Outcome {
+  WIN
+  DRAW
+  LOSE
+}
+
+enum BetType {
+  BACK
+  LAY
+}
+
 model Team {
   teamFqn String @id @map("team_fqn")
   name String
@@ -75,7 +86,9 @@ model Bet {
   model      BetModel @relation(fields: [modelName], references: [name])
 
   isValidationBet Boolean @map("is_validation_bet")
-  outcome String? @map("outcome")
+  outcome Outcome? @map("outcome")
+
+  @@unique([fixtureFqn, modelName], name: "betIdentifier")
 
   @@map("bets")
 }
@@ -84,6 +97,7 @@ model BetModel {
   id Int @id @default(autoincrement())
 
   name String @unique
+  betType BetType @map("bet_type")
   isActive Boolean @default(true) @map("is_active")
 
   bets Bet[]
