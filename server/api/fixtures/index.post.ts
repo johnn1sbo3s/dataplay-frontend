@@ -1,4 +1,4 @@
-import { FixtureService } from "../../utils/services/fixtureService";
+import { FixtureService } from "../../utils/services/fixtureService"
 import { z } from 'zod'
 
 const fixtureSchema = z.object({
