@@ -37,7 +37,7 @@ export const BetModelService = {
 
     return {
       success: true,
-      process: results.length,
+      processed: results.length,
       failed: errors.length,
       results,
       errors

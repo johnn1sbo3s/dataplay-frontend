@@ -68,8 +68,8 @@ export const FixtureService = {
     }
 
     return {
-      succes: true,
-      process: results.length,
+      success: true,
+      processed: results.length,
       failed: errors.length,
       results,
       errors
