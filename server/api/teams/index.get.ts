@@ -1,5 +1,5 @@
-import { TeamService } from "../../utils/services/teamService";
+import { TeamService } from '../../utils/services/teamService'
 
 export default defineEventHandler(async () => {
-    return await TeamService.index()
+  return await TeamService.index()
 })

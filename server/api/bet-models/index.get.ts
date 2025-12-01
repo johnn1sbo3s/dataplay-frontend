@@ -1,5 +1,5 @@
-import { BetModelService } from "../../utils/services/betModelService"
+import { BetModelService } from '../../utils/services/betModelService'
 
-export default defineEventHandler(async (event) => {
-    return await BetModelService.index()
+export default defineEventHandler(async () => {
+  return await BetModelService.index()
 })

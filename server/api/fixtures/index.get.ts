@@ -1,5 +1,5 @@
-import { FixtureService } from "../../utils/services/fixtureService";
+import { FixtureService } from '../../utils/services/fixtureService'
 
-export default defineEventHandler(async (event) => {
-    return await FixtureService.index()
+export default defineEventHandler(async () => {
+  return await FixtureService.index()
 })
