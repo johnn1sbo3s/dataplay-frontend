@@ -5,12 +5,30 @@
   --font-sans: 'Satoshi', sans-serif;
 
   /* Light */
-  --color-base: oklch(96.8% 0.007 247.896);
-  --color-soft: oklch(98.4% 0.003 247.858);
-  --color-strong: oklch(92.9% 0.013 255.508);
+  --color-base: oklch(98.2% 0.007 247.896);
+  --color-soft: oklch(99.5% 0.003 247.858);
+  --color-strong: oklch(97.8% 0.011 247.896);
+  --color-mute: oklch(94.8% 0.015 247.896);
 
   /* Dark */
   --color-dark-base: oklch(20.8% 0.042 265.755);
-  --color-dark-soft: oklch(27.9% 0.041 260.031);
-  --color-dark-strong: oklch(12.9% 0.042 264.695);
+  --color-dark-soft: oklch(24.5% 0.041 260.031);
+  --color-dark-strong: oklch(17.7% 0.042 264.695);
+  --color-dark-mute: oklch(32.0% 0.041 260.031);
+
+  /* Shadow */
+  --shadow-custom-s:
+    inset 0 1px 2px #ffffff30,
+    0 1px 2px #00000030,
+    0 2px 4px #00000015;
+
+  --shadow-custom-m:
+    inset 0 1px 2px #ffffff50,
+    0 2px 4px #00000030,
+    0 4px 8px #00000015;
+
+  --shadow-custom-l:
+    inset 0 1px 2px #ffffff70,
+    0 4px 6px #00000030,
+    0 6px 10px #00000015;
 }
