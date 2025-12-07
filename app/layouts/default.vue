@@ -5,6 +5,7 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const toast = useToast()
 
 const open = ref(false)
+const navigationMenuUi = { link: 'py-3' }
 
 const links = [
   [
@@ -19,7 +20,7 @@ const links = [
     {
       label: 'Jogos do dia',
       icon: 'i-lucide-inbox',
-      to: '/inbox',
+      to: '/fixtures',
       badge: '435',
       onSelect: () => {
         open.value = false
@@ -78,23 +79,24 @@ onMounted(async () => {
     <UDashboardSidebar
       id="default"
       v-model:open="open"
-      collapsible
-      resizable
-      class="bg-elevated/25"
       :ui="{
         body: 'pt-4 bg-soft dark:bg-dark-strong',
         footer: 'lg:border-t lg:border-default bg-base dark:bg-dark-base'
       }"
+      class="bg-elevated/25"
+      collapsible
+      resizable
     >
       <template #default="{ collapsed }">
         <NuxtImg
-          class="h-10 self-center w-full"
           src="/img/dataplay-logo.svg"
+          class="h-10 self-center w-full my-2"
         />
 
         <UNavigationMenu
           :collapsed="collapsed"
           :items="links[0]"
+          :ui="navigationMenuUi"
           orientation="vertical"
           tooltip
           popover
@@ -103,6 +105,7 @@ onMounted(async () => {
         <UNavigationMenu
           :collapsed="collapsed"
           :items="links[1]"
+          :ui="navigationMenuUi"
           orientation="vertical"
           tooltip
           class="mt-auto"
