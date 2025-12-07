@@ -1,20 +1,37 @@
 <script setup lang="ts">
+const props = defineProps({
+  removeToolbar: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const colorMode = useColorMode()
 
 const darkMode = computed<boolean>({
   get: () => colorMode.value === 'dark',
   set: value => colorMode.preference = value ? 'dark' : 'light'
 })
+
+const navbarUi = computed(() => {
+  return {
+    root: props.removeToolbar
+      ? 'shadow-md shadow-neutral-200 dark:shadow-neutral-900'
+      : '',
+    right: 'gap-3'
+  }
+})
 </script>
 
 <template>
-  <div class="absolute top-0 left-0 right-0 z-20">
+  <div
+    class="bg-soft/50 dark:bg-dark-strong/80
+      absolute top-0 left-0 right-0 z-20
+      backdrop-blur-md"
+  >
     <UDashboardNavbar
       title="Home"
-      :ui="{
-        root: 'bg-soft/50 dark:bg-dark-strong/50 backdrop-blur-md',
-        right: 'gap-3'
-      }"
+      :ui="navbarUi"
     >
       <template #leading>
         <UDashboardSidebarCollapse />
@@ -30,9 +47,8 @@ const darkMode = computed<boolean>({
     </UDashboardNavbar>
 
     <UDashboardToolbar
-      :ui="{
-        root: 'bg-soft/50 dark:bg-dark-strong/50 backdrop-blur-md shadow-md shadow-neutral-200 dark:shadow-neutral-900'
-      }"
+      v-if="!removeToolbar"
+      :ui="{ root: 'shadow-md shadow-neutral-200 dark:shadow-neutral-900' }"
     >
       <template #left>
         <slot />
@@ -40,7 +56,3 @@ const darkMode = computed<boolean>({
     </UDashboardToolbar>
   </div>
 </template>
-
-<style lang="scss" scoped>
-
-</style>
