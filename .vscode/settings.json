@@ -49,5 +49,9 @@
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
         }
-    }
+    },
+
+    // remove ; do formatador interno do VSCode
+    "javascript.format.semicolons": "remove",
+    "typescript.format.semicolons": "remove"
 }
