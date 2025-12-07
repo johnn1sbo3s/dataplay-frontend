@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import { prisma } from '../prisma'
 
 interface CreateFixtureDTO {
@@ -14,8 +15,27 @@ interface CreateFixtureDTO {
 }
 
 export const FixtureService = {
-  async index() {
-    return await prisma.fixture.findMany()
+  async fixturesByDate(dateStr: string, zone: string = 'America/Sao_Paulo') {
+    const day = DateTime.fromISO(dateStr, { zone })
+
+    if (!day.isValid) {
+      throw new Error('Invalid date')
+    }
+
+    const startOfDay = day.startOf('day').toUTC().toJSDate()
+    const endOfDay = day.endOf('day').toUTC().toJSDate()
+
+    return await prisma.fixture.findMany({
+      where: {
+        date: {
+          gte: startOfDay,
+          lte: endOfDay
+        }
+      },
+      orderBy: {
+        date: 'asc'
+      }
+    })
   },
 
   async show(fixtureFqn: string) {
