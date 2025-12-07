@@ -82,7 +82,7 @@ onMounted(async () => {
       resizable
       class="bg-elevated/25"
       :ui="{
-        body: 'pt-4',
+        body: 'pt-4 bg-soft dark:bg-dark-strong',
         footer: 'lg:border-t lg:border-default bg-base dark:bg-dark-base'
       }"
     >
