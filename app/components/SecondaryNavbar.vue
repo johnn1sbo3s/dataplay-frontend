@@ -48,7 +48,7 @@ const navbarUi = computed(() => {
 
     <UDashboardToolbar
       v-if="!removeToolbar"
-      :ui="{ root: 'shadow-md shadow-neutral-200 dark:shadow-neutral-900' }"
+      :ui="{ root: 'shadow-md shadow-neutral-200 dark:shadow-neutral-900 py-3' }"
     >
       <template #left>
         <slot />
