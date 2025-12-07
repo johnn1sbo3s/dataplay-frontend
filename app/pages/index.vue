@@ -11,16 +11,11 @@ const period = ref<Period>('daily')
 </script>
 
 <template>
-  <UDashboardPanel
-    id="home"
-    class="bg-base dark:bg-dark-base"
-  >
+  <UDashboardPanel id="home">
     <template #body>
-      <HomeSecondaryNavbar>
-        Chama na grande
-      </HomeSecondaryNavbar>
+      <SecondaryNavbar remove-toolbar />
 
-      <div class="pt-28 flex flex-col gap-4">
+      <div class="pt-14 flex flex-col gap-4">
         <HomeStats :period="period" :range="range" />
         <HomeChart :period="period" :range="range" />
         <HomeSales :period="period" :range="range" />
