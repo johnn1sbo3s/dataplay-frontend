@@ -10,6 +10,19 @@ export default defineNuxtConfig({
     '@nuxt/test-utils'
   ],
 
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.VITE_API_BASE_URL || 'http://localhost:3000/api'
+    }
+  },
+
+  imports: {
+    dirs: [
+      'composables',
+      'composables/query'
+    ]
+  },
+
   devtools: {
     enabled: true
   },
