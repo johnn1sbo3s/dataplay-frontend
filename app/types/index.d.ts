@@ -3,6 +3,19 @@ import type { AvatarProps } from '@nuxt/ui'
 export type UserStatus = 'subscribed' | 'unsubscribed' | 'bounced'
 export type SaleStatus = 'paid' | 'failed' | 'refunded'
 
+export interface Fixture {
+  fixtureFqn: string
+  flashscoreId: string | null
+  date: string | Date
+  league: string
+  homeTeamFqn: string
+  awayTeamFqn: string
+  scoreHomeFt: number | null
+  scoreAwayFt: number | null
+  scoreHomeHt: number | null
+  scoreAwayHt: number | null
+}
+
 export interface User {
   id: number
   name: string
