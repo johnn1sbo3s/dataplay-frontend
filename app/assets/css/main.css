@@ -35,13 +35,13 @@
   /* Radial background */
   --background-dark-image-glow: radial-gradient(
     ellipse 100% 60% at 50% 130%,
-    rgba(56, 189, 248, 0.15),
+    rgba(56, 189, 248, 0.20),
     rgba(255, 255, 255, 0)
   );
 
   --background-image-glow: radial-gradient(
     ellipse 100% 60% at 50% 130%,
-    rgba(56, 189, 248, 0.15),
+    rgba(56, 189, 248, 0.25),
     rgba(255, 255, 255, 0)
   );
 }
