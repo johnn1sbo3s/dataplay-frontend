@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/vue-query'
+import type { Fixture } from '~/types'
 
 export const useFixtures = (date: Ref<string>) => {
   const config = useRuntimeConfig()
@@ -6,7 +7,7 @@ export const useFixtures = (date: Ref<string>) => {
 
   return useQuery({
     queryKey: ['fixtures', date],
-    queryFn: () => $fetch(baseURL + `/fixtures?`, {
+    queryFn: () => $fetch<{ fixtures: Fixture[] }>(baseURL + `/fixtures?`, {
       method: 'GET',
       params: {
         date: date.value
