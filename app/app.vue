@@ -36,7 +36,7 @@ useSeoMeta({
     <NuxtLoadingIndicator />
 
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage class="bg-light-radial dark:bg-dark-radial" />
     </NuxtLayout>
   </UApp>
 </template>

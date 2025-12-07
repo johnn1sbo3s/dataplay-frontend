@@ -31,4 +31,29 @@
     inset 0 1px 2px #ffffff70,
     0 4px 6px #00000030,
     0 6px 10px #00000015;
+
+  /* Radial background */
+  --background-dark-image-glow: radial-gradient(
+    ellipse 100% 60% at 50% 130%,
+    rgba(56, 189, 248, 0.15),
+    rgba(255, 255, 255, 0)
+  );
+
+  --background-image-glow: radial-gradient(
+    ellipse 100% 60% at 50% 130%,
+    rgba(56, 189, 248, 0.15),
+    rgba(255, 255, 255, 0)
+  );
+}
+
+@utility bg-dark-radial {
+  background-color: var(--color-dark-base);
+  background-image: var(--background-dark-image-glow);
+  background-repeat: no-repeat;
+}
+
+@utility bg-light-radial {
+  background-color: var(--color-base);
+  background-image: var(--background-image-glow);
+  background-repeat: no-repeat;
 }
