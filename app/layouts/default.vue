@@ -21,7 +21,10 @@ const links = [
       label: 'Jogos do dia',
       icon: 'i-lucide-inbox',
       to: '/fixtures',
-      badge: '435',
+      badge: {
+        label: '432',
+        size: 'md'
+      },
       onSelect: () => {
         open.value = false
       }
