@@ -20,6 +20,7 @@
     "@nuxt/scripts": "0.13.0",
     "@nuxt/ui": "^4.1.0",
     "@prisma/client": "5.19.0",
+    "@tanstack/vue-query": "^5.92.1",
     "@unhead/vue": "^2.0.19",
     "@unovis/ts": "^1.6.1",
     "@unovis/vue": "^1.6.1",
