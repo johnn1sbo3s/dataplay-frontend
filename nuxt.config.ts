@@ -35,6 +35,11 @@ export default defineNuxtConfig({
     }
   },
 
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark'
+  },
+
   compatibilityDate: '2024-07-11',
 
   eslint: {
