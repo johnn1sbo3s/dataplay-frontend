@@ -7,16 +7,12 @@
     <div
       class="
         glass-panel border-b-0 border-b-white/5 px-6 py-4 my-4 rounded-2xl
-        max-w-[1400px] mx-auto
+        max-w-[1880px] mx-auto
       "
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-5">
-          <NuxtImg
-            src="/img/dataplay-logo.svg"
-            alt="Logo"
-            class="h-8"
-          />
+          <BrandLogo />
         </div>
       </div>
     </div>
