@@ -45,19 +45,7 @@ const dateOptions = computed<SelectItem[]>(() => {
 </script>
 
 <template>
-  <UDashboardPanel id="fixtures">
-    <template #body>
-      <SecondaryNavbar>
-        <USelect
-          v-model="selectedDate"
-          class="w-40"
-          :items="dateOptions"
-        />
-      </SecondaryNavbar>
-
-      <div class="py-28">
-        <FixturesList :fixtures="fixtures" />
-      </div>
-    </template>
-  </UDashboardPanel>
+  <div class="h-full w-full bg-blue-50/20">
+    <FixturesList :fixtures="fixtures" />
+  </div>
 </template>

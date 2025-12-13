@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <FixtureCard :fixture="fixtures[0]" />
+  <BaseCard />
 </template>
 
 <style scoped>

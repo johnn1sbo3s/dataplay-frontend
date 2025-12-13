@@ -2,7 +2,7 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Satoshi', sans-serif;
+  --font-sans: 'Spline Sans', sans-serif;
 
   /* Light */
   --color-base: oklch(98.2% 0.007 247.896);
@@ -18,19 +18,19 @@
 
   /* Shadow */
   --shadow-s:
-    inset 0 1px 2px #ffffff30,
-    0 1px 2px #00000030,
-    0 2px 4px #00000015;
+    inset 0 1px 0px #ffffff30,
+    0 1px 4px rgba(0, 0, 0, 0.07),
+    0 1px 2px #00000015;
 
   --shadow-m:
-    inset 0 1px 2px #ffffff50,
-    0 2px 4px #00000030,
-    0 4px 8px #00000015;
+    inset 0 1px 0px #ffffff30,
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 7px 2px rgba(0, 0, 0, 0.02);
 
   --shadow-l:
-    inset 0 1px 2px #ffffff70,
-    0 4px 6px #00000030,
-    0 6px 10px #00000015;
+    inset 0 1px 0px #ffffff30,
+    0 4px 4px rgba(0, 0, 0, 0.04),
+    0 10px 2px rgba(0, 0, 0, 0.02);
 
   /* Radial background */
   --background-dark-image-glow: radial-gradient(
@@ -50,10 +50,59 @@
   background-color: var(--color-dark-base);
   background-image: var(--background-dark-image-glow);
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 @utility bg-light-radial {
   background-color: var(--color-base);
   background-image: var(--background-image-glow);
   background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+:root {
+  .glass-panel {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .glass-card {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+  .glass-input {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Background Glow Animation */
+  @keyframes float {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+      100% { transform: translate(0px, 0px) scale(1); }
+  }
+  .blob {
+      animation: float 10s infinite ease-in-out;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+      background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+  }
 }

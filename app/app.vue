@@ -17,7 +17,7 @@ useHead({
   }
 })
 
-const title = 'Nuxt Dashboard Template'
+const title = 'Dataplay Bets'
 const description = 'A professional dashboard template built with Nuxt UI, featuring multiple pages, data visualization, and comprehensive management capabilities for creating powerful admin interfaces.'
 
 useSeoMeta({
@@ -35,8 +35,10 @@ useSeoMeta({
   <UApp>
     <NuxtLoadingIndicator />
 
-    <NuxtLayout>
-      <NuxtPage class="bg-light-radial dark:bg-dark-radial" />
-    </NuxtLayout>
+    <div class="min-h-screen w-full bg-light-radial dark:bg-dark-radial">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </div>
   </UApp>
 </template>
