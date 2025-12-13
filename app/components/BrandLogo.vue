@@ -1,11 +1,10 @@
 <script setup lang="ts">
-const { width } = useWindowSize()
+const props = defineProps<{
+  minimal?: boolean
+}>()
 
-const resolvedLogo = computed(() => {
-  if (width.value < 768) {
-    return '/img/dataplay-logo-minimal.svg'
-  }
-
+const resolvedLogo = computed<string>(() => {
+  if (props.minimal) return '/img/dataplay-logo-minimal.svg'
   return '/img/dataplay-logo.svg'
 })
 </script>
@@ -13,7 +12,7 @@ const resolvedLogo = computed(() => {
 <template>
   <NuxtImg
     alt="Logo"
-    class="h-8"
+    class="h-9"
     :src="resolvedLogo"
   />
 </template>
