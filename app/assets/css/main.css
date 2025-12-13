@@ -30,7 +30,8 @@
   --shadow-l:
     inset 0 1px 0px #ffffff30,
     0 4px 4px rgba(0, 0, 0, 0.04),
-    0 10px 2px rgba(0, 0, 0, 0.02);
+    0 10px 2px rgba(0, 0, 0, 0.02),
+    0 10px 20px rgba(0, 0, 0, 0.06);
 
   /* Radial background */
   --background-dark-image-glow: radial-gradient(
