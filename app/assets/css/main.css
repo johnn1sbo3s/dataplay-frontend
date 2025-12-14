@@ -11,7 +11,7 @@
   --color-mute: oklch(94.8% 0.015 247.896);
 
   /* Dark */
-  --color-dark-base: oklch(20.8% 0.042 265.755);
+  --color-dark-base: #131B2A;
   --color-dark-soft: oklch(24.5% 0.041 260.031);
   --color-dark-strong: oklch(17.7% 0.042 264.695);
   --color-dark-mute: oklch(32.0% 0.041 260.031);
@@ -31,7 +31,7 @@
     inset 0 1px 0px #ffffff30,
     0 4px 4px rgba(0, 0, 0, 0.04),
     0 10px 2px rgba(0, 0, 0, 0.02),
-    0 10px 20px rgba(0, 0, 0, 0.06);
+    0 4px 20px rgba(0, 0, 0, 0.05);
 
   /* Radial background */
   --background-dark-image-glow: radial-gradient(
