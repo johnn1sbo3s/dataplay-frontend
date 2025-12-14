@@ -45,7 +45,18 @@ const dateOptions = computed<SelectItem[]>(() => {
 </script>
 
 <template>
-  <div class="h-full w-full bg-blue-50/20">
+  <div class="h-full w-full flex flex-col gap-5">
+    <PageHeader
+      title="Jogos"
+      description="Visualize confrontos, resultados e estatísticas para decisões mais inteligentes."
+    >
+      <template #right>
+        <div class="w-full flex justify-center sm:justify-end">
+          <DatePicker />
+        </div>
+      </template>
+    </PageHeader>
+
     <FixturesList :fixtures="fixtures" />
   </div>
 </template>
