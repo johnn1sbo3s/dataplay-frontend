@@ -1,47 +1,22 @@
 <script setup lang="ts">
-import type { SelectItem } from '@nuxt/ui'
-import { DateTime } from 'luxon'
+import type { CalendarDate } from '@internationalized/date'
+import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 import type { Fixture } from '~/types'
 
-const selectedDate = ref(DateTime.now().toFormat('yyyy-MM-dd'))
+const selectedDate = shallowRef(iToday(getLocalTimeZone()))
 
-const { data: fixturesData } = useFixtures(selectedDate)
+const formattedDate = computed(() => selectedDate.value.toString())
+
+const { data: fixturesData } = useFixtures(formattedDate)
 
 const fixtures = computed<Fixture[]>(() => {
   return fixturesData.value?.fixtures || []
 })
 
-const dateOptions = computed<SelectItem[]>(() => {
-  const dates: SelectItem[] = [
-    {
-      value: DateTime.now().plus({ days: 1 }).toFormat('yyyy-MM-dd'),
-      label: 'Amanhã'
-    },
-    {
-      value: DateTime.now().toFormat('yyyy-MM-dd'),
-      label: 'Hoje'
-    }
-  ]
-
-  for (let i = 1; i <= 3; i++) {
-    const day = DateTime.now().minus({ days: i })
-
-    if (i === 1) {
-      dates.push({
-        value: day.toFormat('yyyy-MM-dd'),
-        label: 'Ontem'
-      })
-      continue
-    }
-
-    dates.push({
-      value: day.toFormat('yyyy-MM-dd'),
-      label: day.toFormat('dd/MM/yyyy')
-    })
-  }
-
-  return dates
-})
+function handleDateChange(date: CalendarDate) {
+  console.log('data mudou. Chegou: ', date)
+  selectedDate.value = date
+}
 </script>
 
 <template>
@@ -52,7 +27,10 @@ const dateOptions = computed<SelectItem[]>(() => {
     >
       <template #right>
         <div class="w-full flex justify-center sm:justify-end">
-          <DatePicker />
+          <DatePicker
+            :selected-date="selectedDate"
+            @date-changed="handleDateChange"
+          />
         </div>
       </template>
     </PageHeader>

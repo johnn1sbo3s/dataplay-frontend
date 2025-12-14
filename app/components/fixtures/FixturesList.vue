@@ -7,7 +7,16 @@ defineProps<{
 </script>
 
 <template>
-  <BaseCard />
+  <div class="mt-8">
+    <div
+      v-if="!fixtures.length"
+      class="flex flex-col items-center justify-center"
+    >
+      <FixturesEmptyState />
+    </div>
+
+    <BaseCard v-else />
+  </div>
 </template>
 
 <style scoped>

@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import type { CalendarDate } from '@internationalized/date'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 import { onClickOutside } from '@vueuse/core'
+
+const props = defineProps<{
+  selectedDate: CalendarDate
+}>()
 
 const emit = defineEmits(['date-changed'])
 
 const datePickerRef = useTemplateRef<HTMLElement>('date-picker-ref')
 const datePickerMainRef = useTemplateRef<HTMLElement>('date-picker-main-ref')
 
-const selectedDate = shallowRef(iToday(getLocalTimeZone()))
+const internalSelectedDate = shallowRef(iToday(getLocalTimeZone()))
 const showDatePicker = shallowRef(false)
 
 const arrowButtonClass = `flex items-center justify-center h-full w-9 cursor-pointer hover:bg-black/10
@@ -16,7 +21,7 @@ const arrowButtonClass = `flex items-center justify-center h-full w-9 cursor-poi
 const computedSelectedDate = computed(() => {
   const timeZone = getLocalTimeZone()
 
-  const selected = selectedDate.value
+  const selected = internalSelectedDate.value
   const tdy = iToday(timeZone)
   const yesterday = tdy.subtract({ days: 1 })
   const tomorrow = tdy.add({ days: 1 })
@@ -28,6 +33,14 @@ const computedSelectedDate = computed(() => {
   return new Intl.DateTimeFormat('pt-BR').format(selected.toDate(timeZone))
 })
 
+watch(() => props.selectedDate, () => {
+  internalSelectedDate.value = props.selectedDate
+})
+
+watch(internalSelectedDate, () => {
+  emit('date-changed', internalSelectedDate.value)
+})
+
 onClickOutside(
   datePickerRef,
   () => showDatePicker.value = false,
@@ -35,21 +48,20 @@ onClickOutside(
 )
 
 function previousDate() {
-  selectedDate.value = selectedDate.value.subtract({ days: 1 })
+  internalSelectedDate.value = internalSelectedDate.value.subtract({ days: 1 })
 }
 
 function nextDate() {
-  selectedDate.value = selectedDate.value.add({ days: 1 })
+  internalSelectedDate.value = internalSelectedDate.value.add({ days: 1 })
 }
 
 function handleDateChange() {
   showDatePicker.value = false
-  emit('date-changed', selectedDate.value)
 }
 </script>
 
 <template>
-  <div class="relative w-[200px] sm:w-[150px]">
+  <div class="relative w-[180px]">
     <div
       class="flex items-center justify-between text-sm text-primary bg-primary/10 w-full h-10
         rounded-full border border-primary/20 overflow-hidden"
@@ -102,7 +114,7 @@ function handleDateChange() {
         class="absolute z-modal right-0 mt-1"
       >
         <UCalendar
-          v-model="selectedDate"
+          v-model="internalSelectedDate"
           :ui="{
             root: 'glass-panel rounded-2xl shadow-md overflow-hidden will-change-[backdrop-filter]',
             header: 'bg-slate-900/40 px-2 py-2',
