@@ -10,15 +10,13 @@ function openPortfolio() {
     class="fixed top-0 z-50 left-0 right-0 mx-5"
   >
     <div
-      class="
-        glass-panel border-b-0 border-t-0 border-b-white/5 px-6 py-4 my-4 rounded-3xl
-        max-w-[1880px] mx-auto shadow-l
-      "
+      class="glass-panel border-b-0 border-t-0 border-b-white/5 px-6 py-4 my-4 rounded-3xl
+        max-w-[1880px] mx-auto shadow-l"
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3 sm:gap-8">
           <Icon
-            name="i-heroicons-bars-3-bottom-left-20-solid"
+            name="i-lucide-menu"
             class="h-6 w-6 text-primary block sm:hidden"
           />
 
