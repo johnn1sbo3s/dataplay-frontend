@@ -62,6 +62,38 @@
 }
 
 :root {
+  .z-sunk {
+    z-index: -1000;
+  }
+
+  .z-base {
+    z-index: 0;
+  }
+
+  .z-backdrop {
+    z-index: 1000;
+  }
+
+  .z-toolbar {
+    z-index: 2000;
+  }
+
+  .z-sidesheet {
+    z-index: 3000;
+  }
+
+  .z-modal {
+    z-index: 4000;
+  }
+
+  .z-tooltip {
+    z-index: 5000;
+  }
+
+  .z-toast {
+    z-index: 6000;
+  }
+
   .glass-panel {
       background: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(16px);
