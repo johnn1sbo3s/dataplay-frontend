@@ -5,6 +5,7 @@ import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps<{
   selectedDate: CalendarDate
+  loading: boolean
 }>()
 
 const emit = defineEmits(['date-changed'])
@@ -63,8 +64,13 @@ function handleDateChange() {
 <template>
   <div class="relative w-[180px]">
     <div
+      v-if="loading"
+      class="absolute bg-transparent top-0 left-0 right-0 bottom-0 z-backdrop rounded-full"
+    />
+    <div
       class="flex items-center justify-between text-sm text-primary bg-primary/10 w-full h-10
         rounded-full border border-primary/20 overflow-hidden"
+      :class="{ 'opacity-50': loading }"
     >
       <div
         id="arrow-left-button"

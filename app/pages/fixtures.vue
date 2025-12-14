@@ -7,7 +7,7 @@ const selectedDate = shallowRef(iToday(getLocalTimeZone()))
 
 const formattedDate = computed(() => selectedDate.value.toString())
 
-const { data: fixturesData } = useFixtures(formattedDate)
+const { data: fixturesData, isLoading: isLoadingFixtures } = useFixtures(formattedDate)
 
 const fixtures = computed<Fixture[]>(() => {
   return fixturesData.value?.fixtures || []
@@ -29,6 +29,7 @@ function handleDateChange(date: CalendarDate) {
         <div class="w-full flex justify-center sm:justify-end">
           <DatePicker
             :selected-date="selectedDate"
+            :loading="isLoadingFixtures"
             @date-changed="handleDateChange"
           />
         </div>
