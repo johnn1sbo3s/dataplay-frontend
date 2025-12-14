@@ -47,7 +47,8 @@ function resolveInitialItem() {
     :items="items"
     :ui="{
       list: 'px-5 py-2 bg-white/5 p-1 rounded-full border border-white/5 shadow-s',
-      indicator: 'rounded-full bg-primary text-background-dark shadow-lg shadow-primary/20'
+      indicator: 'rounded-full bg-primary text-background-dark shadow-lg shadow-primary/20',
+      trigger: 'cursor-pointer'
     }"
     class="w-full"
   />
