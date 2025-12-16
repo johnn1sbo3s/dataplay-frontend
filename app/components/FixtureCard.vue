@@ -8,8 +8,6 @@ defineProps<{
 
 <template>
   <div>
-    <pre>
-      {{ fixture }}
-    </pre>
+    {{ fixture?.date }}
   </div>
 </template>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DataPlay Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+            extend: {
+                colors: {
+                "primary": "#f9f506",
+                "background-light": "#f8f8f5",
+                "background-dark": "#23220f",
+                },
+                fontFamily: {
+                "display": ["Spline Sans", "sans-serif"],
+                "body": ["Noto Sans", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "2xl": "2.5rem", "full": "9999px"},
+            },
+            },
+        }
+    </script>
+<style>
+        /* Custom Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Background Glow Animation */
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .blob {
+            animation: float 10s infinite ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#181811] dark:text-white font-display min-h-screen selection:bg-primary selection:text-black overflow-x-hidden">
+<!-- Ambient Background Effects -->
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="blob absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen"></div>
+<div class="blob absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[120px] mix-blend-screen" style="animation-delay: -2s;"></div>
+<div class="blob absolute top-[20%] right-[20%] w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] mix-blend-screen" style="animation-delay: -4s;"></div>
+</div>
+<!-- Main Wrapper -->
+<div class="relative z-10 flex flex-col min-h-screen">
+<!-- Navbar -->
+<header class="sticky top-0 z-50 glass-panel border-b-0 border-b-white/5 px-6 py-4 mx-4 mt-4 rounded-2xl">
+<div class="flex items-center justify-between max-w-[1400px] mx-auto">
+<!-- Logo & Nav -->
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-background-dark">
+<span class="material-symbols-outlined">ssid_chart</span>
+</div>
+<h2 class="text-white text-xl font-bold tracking-tight">DataPlay</h2>
+</div>
+<nav class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+<a class="px-5 py-2 rounded-full text-sm font-medium bg-primary text-background-dark shadow-lg shadow-primary/20 transition-all" href="#">Dashboard</a>
+<a class="px-5 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all" href="#">Modelos</a>
+<a class="px-5 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all" href="#">Histórico</a>
+<a class="px-5 py-2 rounded-full text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 transition-all" href="#">Comunidade</a>
+</nav>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="hidden lg:flex items-center glass-input rounded-full px-4 py-2 w-64 focus-within:ring-1 focus-within:ring-primary/50 transition-all">
+<span class="material-symbols-outlined text-gray-400 text-[20px]">search</span>
+<input class="bg-transparent border-none text-sm text-white placeholder-gray-500 focus:ring-0 w-full ml-2 h-6 p-0" placeholder="Buscar eventos..." type="text"/>
+</div>
+<!-- Icons -->
+<div class="flex items-center gap-3">
+<button class="size-10 flex items-center justify-center rounded-full glass-card hover:bg-white/10 transition-colors text-white relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2.5 right-2.5 size-2 bg-primary rounded-full"></span>
+</button>
+<button class="size-10 flex items-center justify-center rounded-full glass-card hover:bg-white/10 transition-colors text-white">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+<!-- Profile -->
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-white/10" data-alt="User profile avatar showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDNU9QKbpohQgAaZLX3lYesdRuUAYRrrkA3jM3BILnEaZH7UBgrOwOgErYRD8hUTX-bjZ2JSFy0mrjnIzyJhdqcsBTWeWo99rKwIQoUO49Z8WuRaUmFCukYRVlhW2-OzPPqotPKg-BOQzxfIbGRb07QQOvrzj_PDErQzF_u8Tiwy_DdwsCA9UGZUilerpwYuXvFZXposkx_xXAfkwCi6bMCEXtsxFQAz20FOnGfvm1pmEfBinvnF6ZTvCFLI58TtdRNC1jeikHF");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-4 py-8 md:px-8">
+<div class="max-w-[1400px] mx-auto space-y-8">
+<!-- Headline & Date -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 px-2">
+<div>
+<h1 class="text-4xl font-bold text-white tracking-tight mb-1">Visão Geral</h1>
+<p class="text-gray-400 text-sm">Bem-vindo de volta, Trader. Aqui está o resumo de hoje.</p>
+</div>
+<div class="flex items-center gap-2 text-sm text-primary bg-primary/10 px-4 py-2 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>24 Outubro, 2023</span>
+</div>
+</div>
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1 -->
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 group hover:bg-white/10 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 rounded-xl bg-gradient-to-br from-primary/20 to-transparent text-primary">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="flex items-center text-xs font-bold text-[#078816] bg-[#078816]/10 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span>
+                                +2.5%
+                            </span>
+</div>
+<div>
+<p class="text-gray-400 text-sm font-medium mb-1">Banca Atual</p>
+<h3 class="text-2xl font-bold text-white">R$ 12.450,00</h3>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 group hover:bg-white/10 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 rounded-xl bg-gradient-to-br from-green-500/20 to-transparent text-green-400">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="flex items-center text-xs font-bold text-[#078816] bg-[#078816]/10 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span>
+                                +1.8%
+                            </span>
+</div>
+<div>
+<p class="text-gray-400 text-sm font-medium mb-1">Lucro Hoje</p>
+<h3 class="text-2xl font-bold text-white">R$ 320,00</h3>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 group hover:bg-white/10 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-transparent text-blue-400">
+<span class="material-symbols-outlined">monitoring</span>
+</div>
+<span class="flex items-center text-xs font-bold text-[#078816] bg-[#078816]/10 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span>
+                                +4.1%
+                            </span>
+</div>
+<div>
+<p class="text-gray-400 text-sm font-medium mb-1">ROI Mensal</p>
+<h3 class="text-2xl font-bold text-white">+15.2%</h3>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-card p-6 rounded-2xl flex flex-col gap-4 group hover:bg-white/10 transition-all duration-300">
+<div class="flex justify-between items-start">
+<div class="p-3 rounded-xl bg-gradient-to-br from-pink-500/20 to-transparent text-pink-400">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<span class="flex items-center text-xs font-bold text-[#e71708] bg-[#e71708]/10 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_down</span>
+                                -0.5%
+                            </span>
+</div>
+<div>
+<p class="text-gray-400 text-sm font-medium mb-1">Win Rate</p>
+<h3 class="text-2xl font-bold text-white">62%</h3>
+</div>
+</div>
+</div>
+<!-- Main Grid Section -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Chart Section (Spans 2 columns) -->
+<div class="xl:col-span-2 glass-card rounded-2xl p-6 flex flex-col min-h-[400px]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-white">Evolução da Banca</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1 rounded-lg text-xs font-medium bg-white/10 text-white hover:bg-white/20 transition-colors">1S</button>
+<button class="px-3 py-1 rounded-lg text-xs font-medium bg-primary text-background-dark">1M</button>
+<button class="px-3 py-1 rounded-lg text-xs font-medium bg-white/10 text-white hover:bg-white/20 transition-colors">3M</button>
+<button class="px-3 py-1 rounded-lg text-xs font-medium bg-white/10 text-white hover:bg-white/20 transition-colors">YTD</button>
+</div>
+</div>
+<!-- Mock Chart Area -->
+<div class="flex-1 w-full relative group">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between text-xs text-gray-500">
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+</div>
+<!-- Chart Line SVG -->
+<svg class="w-full h-full absolute inset-0 drop-shadow-[0_0_10px_rgba(249,245,6,0.3)]" viewbox="0 0 800 300">
+<defs>
+<lineargradient id="gradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#f9f506" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#f9f506" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,250 C50,240 100,200 150,210 C200,220 250,180 300,150 C350,120 400,160 450,140 C500,120 550,80 600,60 C650,40 700,50 750,30 L750,300 L0,300 Z" fill="url(#gradient)" stroke="none"></path>
+<path d="M0,250 C50,240 100,200 150,210 C200,220 250,180 300,150 C350,120 400,160 450,140 C500,120 550,80 600,60 C650,40 700,50 750,30" fill="none" stroke="#f9f506" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Points -->
+<circle cx="150" cy="210" fill="#23220f" r="4" stroke="#f9f506" stroke-width="2"></circle>
+<circle cx="300" cy="150" fill="#23220f" r="4" stroke="#f9f506" stroke-width="2"></circle>
+<circle cx="450" cy="140" fill="#23220f" r="4" stroke="#f9f506" stroke-width="2"></circle>
+<circle cx="600" cy="60" fill="#23220f" r="4" stroke="#f9f506" stroke-width="2"></circle>
+<circle class="animate-pulse" cx="750" cy="30" fill="#f9f506" r="6"></circle>
+</svg>
+<!-- Tooltip Mock -->
+<div class="absolute top-[10%] right-[6%] glass-panel px-3 py-2 rounded-lg flex flex-col items-center">
+<span class="text-xs text-gray-400">24 Out</span>
+<span class="text-sm font-bold text-white">R$ 12.450</span>
+</div>
+</div>
+</div>
+<!-- Alerts / Active Bets -->
+<div class="glass-card rounded-2xl p-6 flex flex-col h-full">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-white">Alertas Recentes</h3>
+<button class="text-primary text-sm hover:underline">Ver todos</button>
+</div>
+<div class="flex flex-col gap-3 overflow-y-auto max-h-[400px] pr-2">
+<!-- Alert Item 1 -->
+<div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-primary text-black px-2 py-0.5 rounded">EV+</span>
+<span class="text-xs text-gray-400">Futebol • Brasileirão</span>
+</div>
+<span class="text-xs text-primary font-mono">19:30</span>
+</div>
+<h4 class="text-white font-medium mb-1 group-hover:text-primary transition-colors">Flamengo vs Palmeiras</h4>
+<div class="flex justify-between items-end">
+<div class="text-sm text-gray-400">Prob: <span class="text-white">65%</span></div>
+<div class="text-sm font-bold text-primary">ODD @ 1.95</div>
+</div>
+</div>
+<!-- Alert Item 2 -->
+<div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-green-500 text-black px-2 py-0.5 rounded">Safe</span>
+<span class="text-xs text-gray-400">NBA</span>
+</div>
+<span class="text-xs text-primary font-mono">22:00</span>
+</div>
+<h4 class="text-white font-medium mb-1 group-hover:text-primary transition-colors">Lakers vs Warriors</h4>
+<div class="flex justify-between items-end">
+<div class="text-sm text-gray-400">Over 210.5</div>
+<div class="text-sm font-bold text-primary">ODD @ 1.82</div>
+</div>
+</div>
+<!-- Alert Item 3 -->
+<div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-primary text-black px-2 py-0.5 rounded">High</span>
+<span class="text-xs text-gray-400">Tênis • ATP</span>
+</div>
+<span class="text-xs text-primary font-mono">AO VIVO</span>
+</div>
+<h4 class="text-white font-medium mb-1 group-hover:text-primary transition-colors">Djokovic vs Alcaraz</h4>
+<div class="flex justify-between items-end">
+<div class="text-sm text-gray-400">Vencedor Set 1</div>
+<div class="text-sm font-bold text-primary">ODD @ 2.10</div>
+</div>
+</div>
+<!-- Alert Item 4 -->
+<div class="p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold bg-primary text-black px-2 py-0.5 rounded">EV+</span>
+<span class="text-xs text-gray-400">Futebol • Premier League</span>
+</div>
+<span class="text-xs text-primary font-mono">14:00</span>
+</div>
+<h4 class="text-white font-medium mb-1 group-hover:text-primary transition-colors">Man City vs Arsenal</h4>
+<div class="flex justify-between items-end">
+<div class="text-sm text-gray-400">Ambos Marcam</div>
+<div class="text-sm font-bold text-primary">ODD @ 1.75</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Activity Table -->
+<div class="glass-card rounded-2xl p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-bold text-white">Histórico Recente</h3>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                                Filtrar
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm text-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                                Exportar
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-xs text-gray-400 border-b border-white/10">
+<th class="py-3 px-4 font-medium uppercase">Data</th>
+<th class="py-3 px-4 font-medium uppercase">Evento</th>
+<th class="py-3 px-4 font-medium uppercase">Mercado</th>
+<th class="py-3 px-4 font-medium uppercase">Stake</th>
+<th class="py-3 px-4 font-medium uppercase">Odd</th>
+<th class="py-3 px-4 font-medium uppercase">Resultado</th>
+<th class="py-3 px-4 font-medium uppercase text-right">Lucro/Prej.</th>
+</tr>
+</thead>
+<tbody class="text-sm text-white divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors">
+<td class="py-3 px-4 text-gray-400">24 Out, 14:30</td>
+<td class="py-3 px-4 font-medium">Real Madrid vs Barcelona</td>
+<td class="py-3 px-4 text-gray-300">Over 2.5 Gols</td>
+<td class="py-3 px-4">R$ 100,00</td>
+<td class="py-3 px-4">1.85</td>
+<td class="py-3 px-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs font-bold">WIN</span></td>
+<td class="py-3 px-4 text-right font-bold text-green-400">+R$ 85,00</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="py-3 px-4 text-gray-400">24 Out, 11:00</td>
+<td class="py-3 px-4 font-medium">Djokovic vs Sinner</td>
+<td class="py-3 px-4 text-gray-300">Sinner ML</td>
+<td class="py-3 px-4">R$ 150,00</td>
+<td class="py-3 px-4">2.10</td>
+<td class="py-3 px-4"><span class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-xs font-bold">LOSS</span></td>
+<td class="py-3 px-4 text-right font-bold text-red-400">-R$ 150,00</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="py-3 px-4 text-gray-400">23 Out, 20:45</td>
+<td class="py-3 px-4 font-medium">Liverpool vs Everton</td>
+<td class="py-3 px-4 text-gray-300">Liverpool -1.5</td>
+<td class="py-3 px-4">R$ 200,00</td>
+<td class="py-3 px-4">1.90</td>
+<td class="py-3 px-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs font-bold">WIN</span></td>
+<td class="py-3 px-4 text-right font-bold text-green-400">+R$ 180,00</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="py-3 px-4 text-gray-400">23 Out, 19:00</td>
+<td class="py-3 px-4 font-medium">Chiefs vs Bills</td>
+<td class="py-3 px-4 text-gray-300">Chiefs ML</td>
+<td class="py-3 px-4">R$ 100,00</td>
+<td class="py-3 px-4">1.65</td>
+<td class="py-3 px-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs font-bold">WIN</span></td>
+<td class="py-3 px-4 text-right font-bold text-green-400">+R$ 65,00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-4 flex justify-center">
+<button class="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-1">
+                            Ver histórico completo <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
