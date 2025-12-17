@@ -32,6 +32,16 @@ export const FixtureService = {
           lte: endOfDay
         }
       },
+      include: {
+        homeTeam: true,
+        awayTeam: true,
+        odds: true,
+        bets: {
+          include: {
+            model: true
+          }
+        }
+      },
       orderBy: {
         date: 'asc'
       }
