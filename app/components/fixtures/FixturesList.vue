@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Fixture } from '~/types'
+import FixtureCard from './FixtureCard.vue'
 
 defineProps<{
   fixtures: Fixture[]
@@ -7,15 +8,18 @@ defineProps<{
 </script>
 
 <template>
-  <div class="mt-8">
-    <div
-      v-if="!fixtures.length"
-      class="flex flex-col items-center justify-center"
-    >
-      <FixturesEmptyState />
-    </div>
+  <div class="glass-card rounded-2xl p-6 flex flex-col gap-3 h-full">
+    <span class="text-sm">
+      {{ fixtures.length }} jogos
+    </span>
 
-    <BaseCard v-else />
+    <div class="flex flex-col gap-2">
+      <FixtureCard
+        v-for="(fixture, index) in fixtures"
+        :key="index"
+        :fixture="fixture"
+      />
+    </div>
   </div>
 </template>
 

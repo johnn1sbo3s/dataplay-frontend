@@ -14,13 +14,12 @@ const fixtures = computed<Fixture[]>(() => {
 })
 
 function handleDateChange(date: CalendarDate) {
-  console.log('data mudou. Chegou: ', date)
   selectedDate.value = date
 }
 </script>
 
 <template>
-  <div class="h-full w-full flex flex-col gap-5">
+  <div class="h-full w-full flex flex-col gap-2">
     <PageHeader
       title="Jogos"
       description="Visualize confrontos, resultados e estatísticas para decisões mais inteligentes."
@@ -36,6 +35,22 @@ function handleDateChange(date: CalendarDate) {
       </template>
     </PageHeader>
 
-    <FixturesList :fixtures="fixtures" />
+    <div
+      v-if="!fixtures.length"
+      class="flex flex-col items-center justify-center"
+    >
+      <FixturesEmptyState />
+    </div>
+
+    <div
+      v-else
+      class="lg:grid lg:grid-cols-2 lg:gap-3 mt-5"
+    >
+      <FixturesList :fixtures="fixtures" />
+
+      <div class="hidden lg:block">
+        Parte 2
+      </div>
+    </div>
   </div>
 </template>

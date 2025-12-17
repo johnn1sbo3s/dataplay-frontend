@@ -1,14 +1,14 @@
 <template>
   <div
     id="template-default"
-    class="relative flex flex-col min-h-screen px-10 items-center"
+    class="relative flex flex-col min-h-screen px-4 sm:px-10 items-center"
   >
     <div class="flex flex-col w-full max-w-[1880px] flex-1">
       <NavigationBar />
 
       <main
         id="main-content"
-        class="pt-[116px] w-full flex-1"
+        class="pt-[124px] w-full flex-1"
       >
         <slot />
       </main>
