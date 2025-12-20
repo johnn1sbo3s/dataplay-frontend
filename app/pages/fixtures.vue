@@ -39,7 +39,10 @@ function handleDateChange(date: CalendarDate) {
       v-if="!fixtures.length"
       class="flex flex-col items-center justify-center"
     >
-      <FixturesEmptyState />
+      <FixturesEmptyState
+        title="Nenhum jogo encontrado"
+        description="Tente selecionar outra data"
+      />
     </div>
 
     <div

@@ -1,3 +1,10 @@
+<script setup lang="ts">
+defineProps<{
+  title: string
+  description: string
+}>()
+</script>
+
 <template>
   <div class="flex flex-col gap-3">
     <NuxtImg
@@ -7,11 +14,11 @@
 
     <div class="flex flex-col gap-1 text-center">
       <div class="text-xl font-semibold text-primary">
-        Nenhum jogo encontrado
+        {{ title }}
       </div>
 
-      <div class="text-sm text-muted">
-        Tente selecionar outra data
+      <div class="text-sm text-neutral-400">
+        {{ description }}
       </div>
     </div>
   </div>
