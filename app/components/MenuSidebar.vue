@@ -31,7 +31,6 @@ const footerItems = [
 ]
 
 function handleItemOnSelect() {
-  console.log('Item on select')
   showSidebar.value = false
 }
 </script>
