@@ -2,6 +2,7 @@
 import type { CalendarDate } from '@internationalized/date'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 import { onClickOutside } from '@vueuse/core'
+import { debounce } from 'lodash-es'
 
 const props = defineProps<{
   selectedDate: CalendarDate
@@ -9,6 +10,10 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['date-changed'])
+
+const debouncedEmit = debounce(() => {
+  emit('date-changed', internalSelectedDate.value)
+}, 700)
 
 const datePickerRef = useTemplateRef<HTMLElement>('date-picker-ref')
 const datePickerMainRef = useTemplateRef<HTMLElement>('date-picker-main-ref')
@@ -39,7 +44,7 @@ watch(() => props.selectedDate, () => {
 })
 
 watch(internalSelectedDate, () => {
-  emit('date-changed', internalSelectedDate.value)
+  debouncedEmit()
 })
 
 onClickOutside(
