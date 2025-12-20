@@ -23,34 +23,6 @@
     "editor.codeActionsOnSave": {
         // "source.fixAll.eslint": "explicit"
     },
-    // ========== Organização de imports ==========
-    // Aqui vamos usar o próprio VS Code/TS para organizar imports ao salvar
-    "[javascript]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
-    "[typescript]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
-    "[vue]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
-    "[json]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
-    "[jsonc]": {
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
-        }
-    },
-
     // remove ; do formatador interno do VSCode
     "javascript.format.semicolons": "remove",
     "typescript.format.semicolons": "remove"
