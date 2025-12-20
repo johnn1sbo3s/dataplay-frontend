@@ -8,7 +8,7 @@
 
       <main
         id="main-content"
-        class="pt-[124px] w-full flex-1"
+        class="pt-28 w-full flex-1"
       >
         <slot />
       </main>

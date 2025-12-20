@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="glass-card rounded-2xl p-6 flex flex-col gap-3 h-full">
+  <div class="glass-card rounded-2xl p-4 flex flex-col gap-3 h-full">
     <span class="text-sm">
       {{ fixtures.length }} jogos
     </span>
