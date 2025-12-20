@@ -37,4 +37,6 @@ useSeoMeta({
       </NuxtLayout>
     </div>
   </UApp>
+
+  <MenuSidebar />
 </template>
