@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Fixture } from '~/types'
+
+defineProps<{
+  fixture: Fixture
+}>()
 
 const lightStyle = ref({})
 
@@ -47,7 +52,7 @@ const handleMouseLeave = () => {
       </div>
 
       <h4 class="text-white font-medium mb-1 group-hover:text-primary transition-colors">
-        Flamengo vs Palmeiras
+        {{ fixture.homeTeam.name }} vs {{ fixture.awayTeam.name }}
       </h4>
 
       <div class="flex justify-between items-end">
