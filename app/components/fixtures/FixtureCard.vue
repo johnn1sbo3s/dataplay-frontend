@@ -2,11 +2,37 @@
 import { ref } from 'vue'
 import type { Fixture } from '~/types'
 
-defineProps<{
+const props = defineProps<{
   fixture: Fixture
 }>()
 
 const lightStyle = ref({})
+
+const formattedGameTime = computed(() => {
+  const date = new Date(props.fixture.date)
+
+  return new Intl.DateTimeFormat('pt-BR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).format(date)
+})
+
+const gameHasResults = computed(() => {
+  const fixture = props.fixture
+
+  return fixture.scoreHomeFt || fixture.scoreAwayHt
+})
+
+const victoriousTeam = computed(() => {
+  if (props.fixture.scoreHomeFt == null || props.fixture.scoreAwayFt == null) return null
+
+  if (props.fixture.scoreHomeFt > props.fixture.scoreAwayFt) {
+    return 'home'
+  }
+
+  return 'away'
+})
 
 function handleMouseMove(e: MouseEvent) {
   const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
@@ -25,7 +51,7 @@ const handleMouseLeave = () => {
 
 <template>
   <div
-    class="fixture-card p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
+    class="fixture-card px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
     @mousemove="handleMouseMove"
     @mouseleave="handleMouseLeave"
   >
@@ -37,31 +63,50 @@ const handleMouseLeave = () => {
     <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-linear-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
 
     <div class="relative z-10">
-      <div class="flex justify-between items-start mb-2">
-        <div class="flex items-center gap-2">
-          <span class="text-xs font-bold bg-primary text-black px-2 py-0.5 rounded">
-            EV+
-          </span>
-
-          <span class="text-xs text-gray-400">
-            Futebol • Brasileirão
-          </span>
-        </div>
-
-        <span class="text-xs text-primary font-mono">19:30</span>
+      <div class="text-xs text-gray-400 mb-3">
+        {{ fixture.league }}
       </div>
 
-      <h4 class="text-white font-medium mb-1 group-hover:text-primary transition-colors">
-        {{ fixture.homeTeam.name }} vs {{ fixture.awayTeam.name }}
-      </h4>
+      <div class="flex gap-4 items-center">
+        <FixturesGameTimeBadge :time="formattedGameTime" />
 
-      <div class="flex justify-between items-end">
-        <div class="text-sm text-gray-400">
-          Prob: <span class="text-white">65%</span>
+        <div class="h-10 w-px bg-slate-900/40" />
+
+        <div
+          v-if="gameHasResults"
+          class="flex gap-2"
+        >
+          <UTooltip text="Resultado intervalo">
+            <div class="flex flex-col w-3 gap-1 items-center text-neutral-500">
+              <p>{{ fixture.scoreHomeHt }}</p>
+              <p>{{ fixture.scoreAwayHt }}</p>
+            </div>
+          </UTooltip>
+
+          <div class="flex flex-col w-3 gap-1 items-center group-hover:text-primary transition-colors">
+            <p>{{ fixture.scoreHomeFt }}</p>
+            <p>{{ fixture.scoreAwayFt }}</p>
+          </div>
         </div>
 
-        <div class="text-sm font-bold text-primary">
-          ODD @ 1.95
+        <div class="flex flex-col gap-1">
+          <div class="flex justify-between items-center">
+            <p
+              class="group-hover:text-primary transition-colors"
+              :class="{ 'font-semibold': victoriousTeam === 'home' }"
+            >
+              {{ fixture.homeTeam.name }}
+            </p>
+          </div>
+
+          <div class="flex justify-between items-center">
+            <p
+              class="group-hover:text-primary transition-colors"
+              :class="{ 'font-semibold': victoriousTeam === 'away' }"
+            >
+              {{ fixture.awayTeam.name }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
