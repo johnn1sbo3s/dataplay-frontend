@@ -58,12 +58,12 @@ model Odds {
   id        Int      @id @default(autoincrement())
   timestamp DateTime @default(now())
 
-  fixtureFqn String     @map("fixture_fqn")
+  fixtureFqn String @map("fixture_fqn") @unique
   fixture   Fixture @relation(fields: [fixtureFqn], references: [fixtureFqn])
 
-  homeOdds Float  @map("home_odds")
-  drawOdds Float  @map("draw_odds")
-  awayOdds Float  @map("away_odds")
+  homeOdds Float?  @map("home_odds")
+  drawOdds Float?  @map("draw_odds")
+  awayOdds Float?  @map("away_odds")
   over25Odds Float? @map("over_25_odds")
   under25Odds Float? @map("under_25_odds")
   bttsYesOdds Float? @map("btts_yes_odds")
@@ -85,6 +85,7 @@ model Bet {
   modelName  String @map("model_name")
   model      BetModel @relation(fields: [modelName], references: [name])
 
+  betOdds Float @map("bet_odds")
   isValidationBet Boolean @map("is_validation_bet")
   outcome Outcome? @map("outcome")
 
