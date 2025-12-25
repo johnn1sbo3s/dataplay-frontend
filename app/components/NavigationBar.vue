@@ -13,31 +13,45 @@ function openPortfolio() {
   >
     <div
       class="glass-panel border-b-0 border-t-0 border-b-white/5 px-6 py-4 my-4 rounded-3xl
-        max-w-[1880px] mx-auto shadow-l"
+          max-w-[1880px] mx-auto shadow-l"
     >
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3 sm:gap-8">
-          <Icon
-            name="i-lucide-menu"
-            class="h-6 w-6 text-primary block sm:hidden"
-            @click="showSidebar = true"
-          />
+      <ClientOnly>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3 sm:gap-8">
+            <Icon
+              name="i-lucide-menu"
+              class="h-6 w-6 text-primary block sm:hidden"
+              @click="showSidebar = true"
+            />
 
-          <BrandLogo />
+            <BrandLogo />
 
-          <SegmentedControl class="hidden sm:block" />
+            <SegmentedControl class="hidden sm:block" />
+          </div>
+
+          <div>
+            <UAvatar
+              src="https://avatars.githubusercontent.com/u/49643446?v=4"
+              size="xl"
+              alt="João Paulo Castro's Portfolio"
+              class="cursor-pointer hover:shadow-lg hover:shadow-primary/10"
+              @click="openPortfolio"
+            />
+          </div>
         </div>
 
-        <div>
-          <UAvatar
-            src="https://avatars.githubusercontent.com/u/49643446?v=4"
-            size="xl"
-            alt="João Paulo Castro's Portfolio"
-            class="cursor-pointer hover:shadow-lg hover:shadow-primary/10"
-            @click="openPortfolio"
-          />
-        </div>
-      </div>
+        <template #fallback>
+          <div class="flex justify-between items-center">
+            <div class="flex gap-3 items-center">
+              <USkeleton class="h-9 w-[150px] bg-slate-800 rounded-2xl" />
+
+              <USkeleton class="h-9 w-[220px] bg-slate-800 rounded-2xl" />
+            </div>
+
+            <USkeleton class="h-10 w-10 bg-slate-800 rounded-full" />
+          </div>
+        </template>
+      </ClientOnly>
     </div>
   </header>
 </template>
