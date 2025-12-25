@@ -5,6 +5,7 @@ import { BetService } from '../../utils/services/betService'
 const betSchema = z.object({
   fixtureFqn: z.string().min(1).max(100),
   modelName: z.string().min(1).max(50),
+  betOdds: z.number().min(1).max(1000),
   isValidationBet: z.boolean(),
   outcome: z.enum([Outcome.WIN, Outcome.DRAW, Outcome.LOSE]).optional()
 })

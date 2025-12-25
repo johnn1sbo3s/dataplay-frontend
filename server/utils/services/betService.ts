@@ -1,16 +1,44 @@
 import type { Outcome } from '@prisma/client'
 import { prisma } from '../prisma'
+import { DateTime } from 'luxon'
 
 interface CreateBetDTO {
   fixtureFqn: string
   modelName: string
+  betOdds: number
   isValidationBet: boolean
   outcome?: Outcome
 }
 
 export const BetService = {
-  async index() {
-    return await prisma.bet.findMany()
+  async betsByDate(dateStr: string, zone: string = 'America/Sao_Paulo') {
+    const day = DateTime.fromISO(dateStr, { zone })
+
+    if (!day.isValid) {
+      throw new Error('Invalid date')
+    }
+
+    const startOfDay = day.startOf('day').toUTC().toJSDate()
+    const endOfDay = day.endOf('day').toUTC().toJSDate()
+
+    return await prisma.bet.findMany({
+      where: {
+        fixture: {
+          date: {
+            gte: startOfDay,
+            lt: endOfDay
+          }
+        }
+      },
+      include: {
+        fixture: true
+      },
+      orderBy: {
+        fixture: {
+          date: 'desc'
+        }
+      }
+    })
   },
 
   async createMany(data: CreateBetDTO[]) {
@@ -29,10 +57,12 @@ export const BetService = {
           create: {
             fixtureFqn: bet.fixtureFqn,
             modelName: bet.modelName,
+            betOdds: bet.betOdds,
             isValidationBet: bet.isValidationBet,
             outcome: bet.outcome
           },
           update: {
+            betOdds: bet.betOdds,
             isValidationBet: bet.isValidationBet,
             outcome: bet.outcome
           }
