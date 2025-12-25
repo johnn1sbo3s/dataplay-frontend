@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const showSidebar = useState('showSidebar', () => false)
-console.log('Sidebar', showSidebar.value)
 
 function openPortfolio() {
   window.open('https://jonedev.vercel.app/', '_blank')

@@ -36,7 +36,14 @@ function handleDateChange(date: CalendarDate) {
     </PageHeader>
 
     <div
-      v-if="!fixtures.length"
+      v-if="isLoadingFixtures"
+      class="w-full h-[70vh] flex items-center justify-center gap-1"
+    >
+      <LoadingAnimation />
+    </div>
+
+    <div
+      v-else-if="!fixtures.length"
       class="flex flex-col items-center justify-center"
     >
       <FixturesEmptyState

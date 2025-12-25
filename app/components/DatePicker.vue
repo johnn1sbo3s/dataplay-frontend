@@ -13,7 +13,7 @@ const emit = defineEmits(['date-changed'])
 
 const debouncedEmit = debounce(() => {
   emit('date-changed', internalSelectedDate.value)
-}, 700)
+}, 500)
 
 const datePickerRef = useTemplateRef<HTMLElement>('date-picker-ref')
 const datePickerMainRef = useTemplateRef<HTMLElement>('date-picker-main-ref')
