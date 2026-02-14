@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import type { CalendarDate } from '@internationalized/date'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
+import { breakpointsTailwind } from '@vueuse/core'
 import type { Fixture } from '~/types'
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isDesktop = breakpoints.greaterOrEqual('lg')
+
 const selectedDate = shallowRef(iToday(getLocalTimeZone()))
+const selectedFixture = ref<Fixture | null>(null)
+const openDetails = ref(false)
 
 const formattedDate = computed(() => selectedDate.value.toString())
 
@@ -15,6 +21,11 @@ const fixtures = computed<Fixture[]>(() => {
 
 function handleDateChange(date: CalendarDate) {
   selectedDate.value = date
+}
+
+function handleFixtureClick(fixture: Fixture) {
+  selectedFixture.value = fixture
+  openDetails.value = true
 }
 </script>
 
@@ -56,11 +67,26 @@ function handleDateChange(date: CalendarDate) {
       v-else
       class="lg:grid lg:grid-cols-2 lg:gap-3 mt-5"
     >
-      <FixturesList :fixtures="fixtures" />
+      <FixturesList
+        :fixtures="fixtures"
+        @item-click="handleFixtureClick"
+      />
 
-      <div class="hidden lg:block">
-        Parte 2
+      <div
+        v-if="isDesktop"
+        class="p-5 glass-card rounded-2xl flex flex-col gap-3 h-full"
+      >
+        <pre>
+          {{ selectedFixture }}
+        </pre>
       </div>
+
+      <FixturesGameDetailsDrawer
+        v-else
+        :open="openDetails"
+        :fixture="selectedFixture"
+        @close="openDetails = false"
+      />
     </div>
   </div>
 </template>

@@ -5,6 +5,8 @@ import FixtureCard from './FixtureCard.vue'
 defineProps<{
   fixtures: Fixture[]
 }>()
+
+const emit = defineEmits(['item-click'])
 </script>
 
 <template>
@@ -28,6 +30,7 @@ defineProps<{
         v-for="(fixture, index) in fixtures"
         :key="index"
         :fixture="fixture"
+        @item-click="emit('item-click', $event)"
       />
     </div>
   </div>
