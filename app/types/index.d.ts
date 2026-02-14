@@ -8,6 +8,19 @@ export interface Team {
   name: string
 }
 
+export interface Odds {
+  homeOdds: number | null
+  drawOdds: number | null
+  awayOdds: number | null
+  over25Odds: number | null
+  under25Odds: number | null
+  bttsYesOdds: number | null
+  bttsNoOdds: number | null
+  homeClosingOdds: number | null
+  drawClosingOdds: number | null
+  awayClosingOdds: number | null
+}
+
 export interface Fixture {
   fixtureFqn: string
   flashscoreId: string | null
@@ -19,6 +32,7 @@ export interface Fixture {
   scoreAwayFt: number | null
   scoreHomeHt: number | null
   scoreAwayHt: number | null
+  odds: Odds[]
 }
 
 export interface User {
