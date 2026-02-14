@@ -16,6 +16,17 @@ export default defineNuxtConfig({
     }
   },
 
+  app: {
+    head: {
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap'
+        }
+      ]
+    }
+  },
+
   imports: {
     dirs: [
       'composables',
