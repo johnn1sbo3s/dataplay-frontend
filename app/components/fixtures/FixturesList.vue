@@ -9,9 +9,9 @@ defineProps<{
 
 <template>
   <div class="glass-card rounded-2xl p-4 flex flex-col gap-3 h-full">
-    <span class="text-sm">
+    <p class="text-sm ml-1">
       {{ fixtures.length }} jogos
-    </span>
+    </p>
 
     <div class="flex flex-col gap-3">
       <FixtureCard
