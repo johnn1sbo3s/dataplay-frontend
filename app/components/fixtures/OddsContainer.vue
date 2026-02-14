@@ -41,8 +41,8 @@ const favouriteTeam = computed(() => {
       <small class="text-xs text-white/50">H</small>
 
       <UBadge
+        variant="soft"
         :color="favouriteTeam === 'home' ? 'primary' : 'neutral'"
-        :variant="favouriteTeam === 'home' ? 'solid' : 'soft'"
       >
         {{ (resolvedOdds.home)?.toFixed(2) }}
       </UBadge>
@@ -52,8 +52,8 @@ const favouriteTeam = computed(() => {
       <small class="text-xs text-white/50">D</small>
 
       <UBadge
-        color="neutral"
         variant="soft"
+        color="neutral"
       >
         {{ resolvedOdds.draw?.toFixed(2) }}
       </UBadge>
@@ -63,8 +63,8 @@ const favouriteTeam = computed(() => {
       <small class="text-xs text-white/50">A</small>
 
       <UBadge
+        variant="soft"
         :color="favouriteTeam === 'away' ? 'primary' : 'neutral'"
-        :variant="favouriteTeam === 'away' ? 'solid' : 'soft'"
       >
         {{ resolvedOdds.away?.toFixed(2) }}
       </UBadge>
