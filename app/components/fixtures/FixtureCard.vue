@@ -6,6 +6,8 @@ const props = defineProps<{
   fixture: Fixture
 }>()
 
+const emit = defineEmits(['item-click'])
+
 const lightStyle = ref({})
 
 const formattedGameTime = computed(() => {
@@ -55,6 +57,7 @@ const handleMouseLeave = () => {
     class="fixture-card px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
     @mousemove="handleMouseMove"
     @mouseleave="handleMouseLeave"
+    @click="emit('item-click', fixture)"
   >
     <div
       class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -130,7 +133,15 @@ const handleMouseLeave = () => {
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.fixture-card:hover {
-  box-shadow: 0 0 20px 0 rgba(34, 211, 238, 0.2);
+@media (hover: hover) and (pointer: fine) {
+  .fixture-card:hover {
+    box-shadow: 0 0 20px 0 rgba(34, 211, 238, 0.2);
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .fixture-card:hover {
+    box-shadow: none;
+  }
 }
 </style>
