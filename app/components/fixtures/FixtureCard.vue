@@ -18,10 +18,11 @@ const formattedGameTime = computed(() => {
   }).format(date)
 })
 
-const gameHasResults = computed(() => {
-  const fixture = props.fixture
+const gameHasResults = computed<boolean>(() => {
+  if (!props.fixture) return false
+  if (!props.fixture.scoreHomeFt && !props.fixture.scoreAwayHt) return false
 
-  return fixture.scoreHomeFt || fixture.scoreAwayHt
+  return true
 })
 
 const victoriousTeam = computed(() => {
@@ -62,52 +63,62 @@ const handleMouseLeave = () => {
 
     <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-linear-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
 
-    <div class="relative z-10">
-      <div class="text-xs text-gray-400 mb-3">
-        {{ fixture.league }}
-      </div>
+    <div class="relative z-10 flex flex-col gap-1">
+      <span class="text-xs text-gray-400 mb-3">
+        <span class="font-semibold">
+          {{ formattedGameTime }}
+        </span>
 
-      <div class="flex gap-4 items-center">
-        <FixturesGameTimeBadge :time="formattedGameTime" />
+        - {{ fixture.league }}
+      </span>
 
-        <div class="h-10 w-px bg-slate-900/40" />
+      <div class="flex gap-4 items-center justify-between">
+        <div class="flex gap-4 items-center text-sm">
+          <div
+            v-if="gameHasResults"
+            class="flex gap-2"
+          >
+            <UTooltip text="Resultado intervalo">
+              <div class="flex flex-col w-3 gap-1 items-center text-neutral-500">
+                <p>{{ fixture.scoreHomeHt }}</p>
+                <p>{{ fixture.scoreAwayHt }}</p>
+              </div>
+            </UTooltip>
 
-        <div
-          v-if="gameHasResults"
-          class="flex gap-2"
-        >
-          <UTooltip text="Resultado intervalo">
-            <div class="flex flex-col w-3 gap-1 items-center text-neutral-500">
-              <p>{{ fixture.scoreHomeHt }}</p>
-              <p>{{ fixture.scoreAwayHt }}</p>
+            <div class="flex flex-col w-3 gap-1 items-center group-hover:text-primary transition-colors">
+              <p>{{ fixture.scoreHomeFt }}</p>
+              <p>{{ fixture.scoreAwayFt }}</p>
             </div>
-          </UTooltip>
+          </div>
 
-          <div class="flex flex-col w-3 gap-1 items-center group-hover:text-primary transition-colors">
-            <p>{{ fixture.scoreHomeFt }}</p>
-            <p>{{ fixture.scoreAwayFt }}</p>
+          <div
+            class="flex flex-col gap-1 text-white"
+            :class="{ 'text-white/50': gameHasResults }"
+          >
+            <div class="flex justify-between items-center">
+              <p
+                class="group-hover:text-primary transition-colors"
+                :class="{ 'font-semibold text-white': victoriousTeam === 'home' }"
+              >
+                {{ fixture.homeTeam.name }}
+              </p>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <p
+                class="group-hover:text-primary transition-colors"
+                :class="{ 'font-semibold text-white': victoriousTeam === 'away' }"
+              >
+                {{ fixture.awayTeam.name }}
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="flex flex-col gap-1">
-          <div class="flex justify-between items-center">
-            <p
-              class="group-hover:text-primary transition-colors"
-              :class="{ 'font-semibold': victoriousTeam === 'home' }"
-            >
-              {{ fixture.homeTeam.name }}
-            </p>
-          </div>
-
-          <div class="flex justify-between items-center">
-            <p
-              class="group-hover:text-primary transition-colors"
-              :class="{ 'font-semibold': victoriousTeam === 'away' }"
-            >
-              {{ fixture.awayTeam.name }}
-            </p>
-          </div>
-        </div>
+        <FixturesOddsContainer
+          :odds="fixture.odds[0]"
+          :game-has-results="gameHasResults"
+        />
       </div>
     </div>
   </div>
