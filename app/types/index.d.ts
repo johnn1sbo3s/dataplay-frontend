@@ -21,6 +21,12 @@ export interface Odds {
   awayClosingOdds: number | null
 }
 
+export interface Bet {
+  modelName: string
+  betOdds: number
+  outcome?: string
+}
+
 export interface Fixture {
   fixtureFqn: string
   flashscoreId: string | null
@@ -33,6 +39,7 @@ export interface Fixture {
   scoreHomeHt: number | null
   scoreAwayHt: number | null
   odds: Odds[]
+  bets: Bet[]
 }
 
 export interface User {

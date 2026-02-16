@@ -39,7 +39,8 @@ export const FixtureService = {
         bets: {
           select: {
             modelName: true,
-            outcome: true
+            outcome: true,
+            betOdds: true
           }
         }
       },
