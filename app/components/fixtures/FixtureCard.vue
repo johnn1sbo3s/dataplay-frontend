@@ -76,7 +76,8 @@ const handleMouseLeave = () => {
         <UBadge
           v-if="fixture.bets.length > 0"
           size="sm"
-          variant="outline"
+          variant="soft"
+          color="secondary"
           class="shrink-0"
         >
           {{ fixture.bets.length }} {{ fixture.bets.length === 1 ? 'aposta' : 'apostas' }}
