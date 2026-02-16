@@ -76,17 +76,25 @@ function handleFixtureClick(fixture: Fixture) {
         v-if="isDesktop"
         class="p-5 glass-card rounded-2xl flex flex-col gap-3 h-full"
       >
-        <pre>
-          {{ selectedFixture }}
-        </pre>
+        <FixturesGameDetails
+          v-if="selectedFixture"
+          :fixture="selectedFixture"
+        />
       </div>
 
-      <FixturesGameDetailsDrawer
+      <UDrawer
         v-else
         :open="openDetails"
-        :fixture="selectedFixture"
+        :ui="{ content: 'glass-card' }"
         @close="openDetails = false"
-      />
+      >
+        <template #content>
+          <FixturesGameDetails
+            v-if="selectedFixture"
+            :fixture="selectedFixture"
+          />
+        </template>
+      </UDrawer>
     </div>
   </div>
 </template>
