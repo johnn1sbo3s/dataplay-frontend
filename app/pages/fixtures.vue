@@ -25,6 +25,11 @@ const fixtures = computed<Fixture[]>(() => {
 })
 
 function handleDateChange(date: CalendarDate) {
+  filters.value = {
+    searchString: '',
+    timeRange: undefined,
+    oddsRange: undefined
+  }
   selectedFixture.value = null
   selectedDate.value = date
 }
