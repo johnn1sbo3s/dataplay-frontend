@@ -14,6 +14,7 @@ const filteredFixtures = computed(() => {
   let fixtures = props.fixtures
 
   fixtures = filterBySearchString(fixtures)
+  fixtures = filterByTimeRange(fixtures)
 
   return fixtures
 })
@@ -27,6 +28,17 @@ function filterBySearchString(fixtures: Fixture[]) {
     return f.homeTeam.name.toLowerCase().includes(searchString)
       || f.awayTeam.name.toLowerCase().includes(searchString)
       || f.league.toLowerCase().includes(searchString)
+  })
+}
+
+function filterByTimeRange(fixtures: Fixture[]) {
+  if (!props.filters.timeRange) return fixtures
+
+  const [startHour, endHour] = props.filters.timeRange
+
+  return fixtures.filter((f) => {
+    const hour = new Date(f.date).getHours()
+    return hour >= startHour && hour <= endHour
   })
 }
 </script>

@@ -3,6 +3,7 @@ import type { CalendarDate } from '@internationalized/date'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 import { breakpointsTailwind } from '@vueuse/core'
 import type { Fixture } from '~/types'
+import type { Filters } from '~/components/fixtures/FiltersSection.vue'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isDesktop = breakpoints.greaterOrEqual('lg')
@@ -10,10 +11,10 @@ const isDesktop = breakpoints.greaterOrEqual('lg')
 const selectedDate = shallowRef(iToday(getLocalTimeZone()))
 const selectedFixture = ref<Fixture | null>(null)
 const openDetails = ref(false)
-const filters = ref({
+const filters = ref<Filters>({
   searchString: '',
-  timeRange: undefined,
-  oddsRange: undefined
+  timeRange: [0, 24],
+  oddsRange: [0, 1000]
 })
 
 const formattedDate = computed(() => selectedDate.value.toString())
@@ -27,8 +28,8 @@ const fixtures = computed<Fixture[]>(() => {
 function handleDateChange(date: CalendarDate) {
   filters.value = {
     searchString: '',
-    timeRange: undefined,
-    oddsRange: undefined
+    timeRange: [0, 24],
+    oddsRange: [0, 1000]
   }
   selectedFixture.value = null
   selectedDate.value = date
