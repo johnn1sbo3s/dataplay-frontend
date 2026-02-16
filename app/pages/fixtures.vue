@@ -20,6 +20,7 @@ const fixtures = computed<Fixture[]>(() => {
 })
 
 function handleDateChange(date: CalendarDate) {
+  selectedFixture.value = null
   selectedDate.value = date
 }
 
