@@ -20,7 +20,7 @@ const filters = defineModel<Filters>({
       v-model="filters.searchString"
       placeholder="Buscar por time ou liga..."
       class="flex-1"
-      :ui="{ base: 'rounded-xl bg-white/5 backdrop-blur-sm' }"
+      :ui="{ base: 'rounded-lg bg-white/5 backdrop-blur-sm' }"
     />
 
     <UButton
