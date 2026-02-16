@@ -37,8 +37,9 @@ export const FixtureService = {
         awayTeam: true,
         odds: true,
         bets: {
-          include: {
-            model: true
+          select: {
+            modelName: true,
+            outcome: true
           }
         }
       },
