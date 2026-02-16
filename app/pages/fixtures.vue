@@ -10,6 +10,11 @@ const isDesktop = breakpoints.greaterOrEqual('lg')
 const selectedDate = shallowRef(iToday(getLocalTimeZone()))
 const selectedFixture = ref<Fixture | null>(null)
 const openDetails = ref(false)
+const filters = ref({
+  searchString: '',
+  timeRange: undefined,
+  oddsRange: undefined
+})
 
 const formattedDate = computed(() => selectedDate.value.toString())
 
@@ -47,6 +52,8 @@ function handleFixtureClick(fixture: Fixture) {
       </template>
     </PageHeader>
 
+    <FixturesFiltersSection v-model="filters" />
+
     <div
       v-if="isLoadingFixtures"
       class="w-full h-[70vh] flex items-center justify-center gap-1"
@@ -66,10 +73,11 @@ function handleFixtureClick(fixture: Fixture) {
 
     <div
       v-else
-      class="lg:grid lg:grid-cols-2 lg:gap-3 mt-5"
+      class="lg:grid lg:grid-cols-2 lg:gap-3"
     >
       <FixturesList
         :fixtures="fixtures"
+        :filters="filters"
         @item-click="handleFixtureClick"
       />
 
