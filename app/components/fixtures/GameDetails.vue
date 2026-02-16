@@ -6,9 +6,7 @@ const props = defineProps<{
 }>()
 
 const gameHasResults = computed<boolean>(() => {
-  if (!props.fixture.scoreHomeFt && !props.fixture.scoreAwayHt) return false
-
-  return true
+  return props.fixture.scoreHomeFt != null && props.fixture.scoreAwayHt != null
 })
 
 const formattedGameTime = computed(() => {
@@ -54,6 +52,32 @@ const closingOdds = computed(() => {
     }
   ]
 })
+
+const totalOdds = computed(() => {
+  return [
+    {
+      label: 'Under',
+      value: props.fixture.odds[0]?.under25Odds ?? 0
+    },
+    {
+      label: 'Over',
+      value: props.fixture.odds[0]?.over25Odds ?? 0
+    }
+  ]
+})
+
+const bttsOdds = computed(() => {
+  return [
+    {
+      label: 'Yes',
+      value: props.fixture.odds[0]?.bttsYesOdds ?? 0
+    },
+    {
+      label: 'No',
+      value: props.fixture.odds[0]?.bttsNoOdds ?? 0
+    }
+  ]
+})
 </script>
 
 <template>
@@ -95,11 +119,17 @@ const closingOdds = computed(() => {
           {{ fixture.awayTeam.name }}
         </span>
       </div>
+
+      <span class="text-xs text-white/50 -mt-2">
+        <span class="mr-0.5">HT:</span>
+
+        {{ fixture.scoreHomeHt }} - {{ fixture.scoreAwayHt }}
+      </span>
     </header>
 
     <div class="w-full h-px bg-primary-900/40" />
 
-    <main class="flex flex-col gap-4 items-center w-full">
+    <main class="flex flex-col gap-8 items-center w-full">
       <div class="flex gap-4 items-center justify-around w-full">
         <FixturesOddsBlock
           label="Match Odds"
@@ -109,8 +139,20 @@ const closingOdds = computed(() => {
 
         <FixturesOddsBlock
           v-if="gameHasResults"
-          label="Closing Odds"
+          label="MO Closing Odds"
           :odds="closingOdds"
+        />
+      </div>
+
+      <div class="flex gap-4 items-center justify-around w-full">
+        <FixturesOddsBlock
+          label="O/U 2.5"
+          :odds="totalOdds"
+        />
+
+        <FixturesOddsBlock
+          label="BTTS"
+          :odds="bttsOdds"
         />
       </div>
     </main>

@@ -21,10 +21,7 @@ const formattedGameTime = computed(() => {
 })
 
 const gameHasResults = computed<boolean>(() => {
-  if (!props.fixture) return false
-  if (!props.fixture.scoreHomeFt && !props.fixture.scoreAwayHt) return false
-
-  return true
+  return props.fixture.scoreHomeFt != null && props.fixture.scoreAwayHt != null
 })
 
 const victoriousTeam = computed(() => {
