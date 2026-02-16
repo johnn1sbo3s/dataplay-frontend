@@ -16,7 +16,7 @@ defineProps<OddsBlockProps>()
 <template>
   <div class="flex flex-col gap-2 items-center justify-center">
     <div class="flex gap-2 items-center">
-      <p class="text-sm font-semibold">
+      <p class="text-sm font-semibold text-white/90">
         {{ label }}
       </p>
 

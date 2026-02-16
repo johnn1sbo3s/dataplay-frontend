@@ -16,7 +16,7 @@ const emit = defineEmits(['item-click'])
         {{ fixtures.length }} jogos
       </p>
 
-      <div class="flex gap-1 items-center">
+      <div class="flex gap-1.5 items-center">
         <div class="bg-primary-500/30 h-3 w-4 rounded-xs" />
 
         <small class="text-white/90 text-xs mt-0.5">
