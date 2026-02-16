@@ -20,7 +20,10 @@ defineProps<OddsBlockProps>()
         {{ label }}
       </p>
 
-      <UPopover :ui="{ content: 'glass-card' }">
+      <UPopover
+        v-if="infoText"
+        :ui="{ content: 'glass-card' }"
+      >
         <UButton
           variant="ghost"
           size="sm"
