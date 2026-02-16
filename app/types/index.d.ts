@@ -9,13 +9,13 @@ export interface Team {
 }
 
 export interface Odds {
-  homeOdds: number | null
-  drawOdds: number | null
-  awayOdds: number | null
-  over25Odds: number | null
-  under25Odds: number | null
-  bttsYesOdds: number | null
-  bttsNoOdds: number | null
+  homeOdds: number
+  drawOdds: number
+  awayOdds: number
+  over25Odds: number
+  under25Odds: number
+  bttsYesOdds: number
+  bttsNoOdds: number
   homeClosingOdds: number | null
   drawClosingOdds: number | null
   awayClosingOdds: number | null
