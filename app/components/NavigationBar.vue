@@ -41,11 +41,11 @@ function openPortfolio() {
         </div>
 
         <template #fallback>
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center w-full">
             <div class="flex gap-3 items-center">
               <USkeleton class="h-9 w-[150px] bg-slate-800 rounded-2xl" />
 
-              <USkeleton class="h-9 w-[220px] bg-slate-800 rounded-2xl" />
+              <USkeleton class="h-9 w-full bg-slate-800 rounded-2xl" />
             </div>
 
             <USkeleton class="h-10 w-10 bg-slate-800 rounded-full" />
