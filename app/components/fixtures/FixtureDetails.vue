@@ -81,8 +81,8 @@ const bttsOdds = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8 items-center p-5 w-full">
-    <FixturesGameDetailsHeader
+  <div class="flex flex-col gap-6 items-center p-5 w-full">
+    <FixturesFixtureDetailsHeader
       :fixture="fixture"
       :game-has-results="gameHasResults"
       :formatted-game-time="formattedGameTime"

@@ -30,6 +30,18 @@ const footerItems = [
   }
 ]
 
+watch(showSidebar, (value) => {
+  if (value) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
+})
+
 function handleItemOnSelect() {
   showSidebar.value = false
 }
@@ -47,8 +59,7 @@ function handleItemOnSelect() {
   >
     <div
       v-if="showSidebar"
-      id="sidebar-backdrop"
-      class="absolute top-0 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-xl z-50 p-8
+      class="fixed inset-0 bg-black/40 backdrop-blur-xl z-50 p-8
         flex flex-col items-center justify-center"
     >
       <div

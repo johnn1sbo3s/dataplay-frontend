@@ -84,7 +84,7 @@ function handleFixtureClick(fixture: Fixture) {
             @click="selectedFixture = null"
           />
 
-          <FixturesGameDetails
+          <FixturesFixtureDetails
             :fixture="selectedFixture"
           />
         </div>
@@ -97,7 +97,7 @@ function handleFixtureClick(fixture: Fixture) {
         @close="openDetails = false"
       >
         <template #content>
-          <FixturesGameDetails
+          <FixturesFixtureDetails
             v-if="selectedFixture"
             :fixture="selectedFixture"
           />
