@@ -48,7 +48,10 @@ defineProps<{
       </div>
     </div>
 
-    <span class="text-xs text-white/50 -mt-2">
+    <span
+      v-if="gameHasResults"
+      class="text-xs text-white/50 -mt-2"
+    >
       <span class="mr-0.5">HT:</span>
 
       {{ fixture.scoreHomeHt }} - {{ fixture.scoreAwayHt }}

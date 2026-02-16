@@ -64,13 +64,24 @@ const handleMouseLeave = () => {
     <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-linear-to-br from-primary/10 via-transparent to-transparent pointer-events-none" />
 
     <div class="relative z-10 flex flex-col gap-1">
-      <span class="text-xs text-gray-400 mb-3">
-        <span class="font-semibold">
-          {{ formattedGameTime }}
-        </span>
+      <div class="flex items-start gap-2 justify-between">
+        <div class="flex items-center gap-1 text-xs text-gray-400 mb-3">
+          <span class="font-semibold">
+            {{ formattedGameTime }}
+          </span>
 
-        - {{ fixture.league }}
-      </span>
+          - {{ fixture.league }}
+        </div>
+
+        <UBadge
+          v-if="fixture.bets.length > 0"
+          size="sm"
+          variant="outline"
+          class="shrink-0"
+        >
+          {{ fixture.bets.length }} {{ fixture.bets.length === 1 ? 'aposta' : 'apostas' }}
+        </UBadge>
+      </div>
 
       <div class="flex gap-4 items-center justify-between">
         <div class="flex gap-4 items-center text-sm">

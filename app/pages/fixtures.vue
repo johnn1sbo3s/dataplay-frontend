@@ -73,17 +73,24 @@ function handleFixtureClick(fixture: Fixture) {
       />
 
       <div
-        v-if="isDesktop"
-        class="p-5 glass-card rounded-2xl flex flex-col gap-3 h-full"
+        v-if="isDesktop && selectedFixture"
+        class="sticky top-28 p-5 glass-card rounded-2xl flex flex-col gap-3 h-max max-h-[calc(100vh-250px)] overflow-y-auto"
       >
-        <FixturesGameDetails
-          v-if="selectedFixture"
-          :fixture="selectedFixture"
-        />
+        <div class="relative">
+          <Icon
+            name="i-lucide-x"
+            class="absolute top-0 right-0 cursor-pointer text-white/60"
+            @click="selectedFixture = null"
+          />
+
+          <FixturesGameDetails
+            :fixture="selectedFixture"
+          />
+        </div>
       </div>
 
       <UDrawer
-        v-else
+        v-if="!isDesktop"
         :open="openDetails"
         :ui="{ content: 'glass-card' }"
         @close="openDetails = false"

@@ -81,7 +81,7 @@ const bttsOdds = computed(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8 items-center py-5 px-3 w-full">
+  <div class="flex flex-col gap-8 items-center p-5 w-full">
     <FixturesGameDetailsHeader
       :fixture="fixture"
       :game-has-results="gameHasResults"
@@ -94,6 +94,11 @@ const bttsOdds = computed(() => {
       :total-odds="totalOdds"
       :btts-odds="bttsOdds"
       :game-has-results="gameHasResults"
+    />
+
+    <FixturesBetsSection
+      v-if="fixture.bets.length > 0"
+      :bets="fixture.bets"
     />
   </div>
 </template>
