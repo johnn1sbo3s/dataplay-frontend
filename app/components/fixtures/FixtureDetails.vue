@@ -9,16 +9,6 @@ const gameHasResults = computed<boolean>(() => {
   return props.fixture.scoreHomeFt != null && props.fixture.scoreAwayHt != null
 })
 
-const formattedGameTime = computed(() => {
-  const date = new Date(props.fixture.date)
-
-  return new Intl.DateTimeFormat('pt-BR', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false
-  }).format(date)
-})
-
 const matchOdds = computed(() => {
   return [
     {
@@ -85,7 +75,6 @@ const bttsOdds = computed(() => {
     <FixturesFixtureDetailsHeader
       :fixture="fixture"
       :game-has-results="gameHasResults"
-      :formatted-game-time="formattedGameTime"
     />
 
     <FixturesOddsSection

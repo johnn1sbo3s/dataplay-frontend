@@ -73,51 +73,50 @@ function handleFixtureClick(fixture: Fixture) {
       />
     </div>
 
-    <div
-      v-else
-      class="lg:grid lg:grid-cols-2 lg:gap-3"
-    >
+    <div v-else>
       <FixturesFiltersSection
         v-model="filters"
-        class="mt-4 mb-4"
+        class="mt-4 mb-4 lg:w-1/2"
       />
 
-      <FixturesList
-        :fixtures="fixtures"
-        :filters="filters"
-        @item-click="handleFixtureClick"
-      />
+      <div class="lg:grid lg:grid-cols-2 lg:gap-3">
+        <FixturesList
+          :fixtures="fixtures"
+          :filters="filters"
+          @item-click="handleFixtureClick"
+        />
 
-      <div
-        v-if="isDesktop && selectedFixture"
-        class="sticky top-28 p-5 glass-card rounded-2xl flex flex-col gap-3 h-max max-h-[calc(100vh-250px)] overflow-y-auto"
-      >
-        <div class="relative">
-          <Icon
-            name="i-lucide-x"
-            class="absolute top-0 right-0 cursor-pointer text-white/60"
-            @click="selectedFixture = null"
-          />
+        <div
+          v-if="isDesktop && selectedFixture"
+          class="sticky top-28 p-5 glass-card rounded-2xl flex flex-col gap-3 h-max max-h-[calc(100vh-250px)] overflow-y-auto"
+        >
+          <div class="relative">
+            <Icon
+              name="i-lucide-x"
+              class="absolute top-0 right-0 cursor-pointer text-white/60"
+              @click="selectedFixture = null"
+            />
 
-          <FixturesFixtureDetails
-            :fixture="selectedFixture"
-          />
+            <FixturesFixtureDetails
+              :fixture="selectedFixture"
+            />
+          </div>
         </div>
-      </div>
 
-      <UDrawer
-        v-if="!isDesktop"
-        :open="openDetails"
-        :ui="{ content: 'glass-card' }"
-        @close="openDetails = false"
-      >
-        <template #content>
-          <FixturesFixtureDetails
-            v-if="selectedFixture"
-            :fixture="selectedFixture"
-          />
-        </template>
-      </UDrawer>
+        <UDrawer
+          v-if="!isDesktop"
+          :open="openDetails"
+          :ui="{ content: 'glass-card' }"
+          @close="openDetails = false"
+        >
+          <template #content>
+            <FixturesFixtureDetails
+              v-if="selectedFixture"
+              :fixture="selectedFixture"
+            />
+          </template>
+        </UDrawer>
+      </div>
     </div>
   </div>
 </template>
