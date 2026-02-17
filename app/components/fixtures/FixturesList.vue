@@ -45,6 +45,7 @@ function filterByTimeRange(fixtures: Fixture[]) {
 }
 
 function filterByBetsOnly(fixtures: Fixture[]) {
+  if (!props.filters.withBetsOnly) return fixtures
   return fixtures.filter(f => f.bets.length)
 }
 </script>
