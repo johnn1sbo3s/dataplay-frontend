@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Fixture } from '~/types'
+import { breakpointsTailwind } from '@vueuse/core'
 
 const props = defineProps<{
   fixture: Fixture
@@ -9,6 +10,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['item-click'])
 
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isDesktop = breakpoints.greaterOrEqual('lg')
 const lightStyle = ref({})
 
 const formattedGameTime = computed(() => {
@@ -53,7 +56,7 @@ const handleMouseLeave = () => {
 <template>
   <div
     class="fixture-card px-4 py-3 rounded-xl bg-white/5 border hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
-    :class="selected ? 'border-primary/50 bg-white/10' : 'border-white/5'"
+    :class="selected && isDesktop ? 'border-primary/50 bg-white/10' : 'border-white/5'"
     @mousemove="handleMouseMove"
     @mouseleave="handleMouseLeave"
     @click="emit('item-click', fixture)"
