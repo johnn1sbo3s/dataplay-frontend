@@ -40,7 +40,7 @@ export const BetService = {
       },
       orderBy: {
         fixture: {
-          date: 'desc'
+          date: 'asc'
         }
       }
     })
