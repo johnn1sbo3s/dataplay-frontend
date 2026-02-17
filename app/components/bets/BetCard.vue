@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { Bet } from '~/types'
+import { breakpointsTailwind } from '@vueuse/core'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isDesktop = breakpoints.greaterOrEqual('lg')
 
 const props = defineProps<{
   bet: Bet
@@ -14,10 +18,6 @@ const formattedGameTime = computed(() => {
     hour12: false
   }).format(date)
 })
-
-function handleFlashscoreClick() {
-  window.open(`https://www.flashscore.com.br/jogo/${props.bet.fixture.flashscoreId}/#/resumo-de-jogo/resumo-de-jogo`, '_blank')
-}
 </script>
 
 <template>
@@ -36,10 +36,10 @@ function handleFlashscoreClick() {
       </div>
 
       <div class="flex items-center gap-2 justify-between w-full">
-        <div class="flex items-center gap-2 font-semibold text-white/90 flex-wrap">
+        <div class="flex items-center gap-2 text-white/90 flex-wrap">
           <span>{{ snakeToTitleCase(bet.modelName) }}</span>
 
-          <span class="font-light text-white/60">
+          <span class="text-white/60">
             @{{ (bet.betOdds).toFixed(2) }}
           </span>
 
@@ -53,20 +53,10 @@ function handleFlashscoreClick() {
           </UBadge>
         </div>
 
-        <UBadge
-          variant="soft"
-          color="secondary"
-          class="shrink-0"
-          @click="handleFlashscoreClick"
-        >
-          <p class="hidden sm:block">
-            Ver no Flashscore
-          </p>
-
-          <Icon
-            name="i-lucide-square-arrow-out-up-right"
-          />
-        </UBadge>
+        <FlashscoreButton
+          :flashscore-id="bet.fixture.flashscoreId"
+          :minimal="isDesktop ? false : true"
+        />
       </div>
     </div>
   </div>

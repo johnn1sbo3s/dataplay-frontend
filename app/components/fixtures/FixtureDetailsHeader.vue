@@ -29,10 +29,14 @@ const formattedGameDate = computed(() => {
 
 <template>
   <div class="flex flex-col gap-6 items-center w-full">
-    <div class="flex gap-1 items-center text-xs text-white/50">
-      <span class="shrink-0">{{ formattedGameDate }}, {{ formattedGameTime }}</span>
-      -
-      <span class="truncate">{{ fixture.league }}</span>
+    <div class="flex flex-col gap-1 items-center">
+      <div class="flex gap-1 items-center text-xs text-white/50">
+        <span class="shrink-0">{{ formattedGameDate }}, {{ formattedGameTime }}</span>
+        -
+        <span class="truncate">{{ fixture.league }}</span>
+      </div>
+
+      <FlashscoreButton :flashscore-id="fixture.flashscoreId" class="w-max" />
     </div>
 
     <div class="flex gap-2 items-center justify-center text-lg w-full text-white/90 font-light">

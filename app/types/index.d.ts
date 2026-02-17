@@ -40,7 +40,7 @@ export interface Bet {
 
 export interface Fixture {
   fixtureFqn: string
-  flashscoreId: string | null
+  flashscoreId: string
   date: string | Date
   league: string
   homeTeam: Team
