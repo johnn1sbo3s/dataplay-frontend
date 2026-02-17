@@ -4,13 +4,6 @@ import type { Bet } from '~/types'
 defineProps<{
   bets: Bet[]
 }>()
-
-function snakeToTitleCase(str: string): string {
-  return str
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ')
-}
 </script>
 
 <template>
@@ -33,7 +26,6 @@ function snakeToTitleCase(str: string): string {
           <span class="text-white/60 ml-1">
             @{{ (bet.betOdds).toFixed(2) }}
           </span>
-
         </span>
 
         <UBadge

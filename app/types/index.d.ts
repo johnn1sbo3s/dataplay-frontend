@@ -22,8 +22,11 @@ export interface Odds {
 }
 
 export interface Bet {
+  id: number
+  fixtureFqn: string
   modelName: string
   betOdds: number
+  fixture: Fixture
   outcome?: string
 }
 

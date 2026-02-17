@@ -25,12 +25,16 @@ const fixtures = computed<Fixture[]>(() => {
   return fixturesData.value?.fixtures || []
 })
 
-function handleDateChange(date: CalendarDate) {
+function resetFilters() {
   filters.value = {
     searchString: '',
     timeRange: [0, 24],
     withBetsOnly: false
   }
+}
+
+function handleDateChange(date: CalendarDate) {
+  resetFilters()
   selectedFixture.value = null
   selectedDate.value = date
 }
@@ -46,6 +50,7 @@ function handleFixtureClick(fixture: Fixture) {
     <PageHeader
       title="Jogos"
       description="Visualize confrontos, resultados e estatísticas para decisões mais inteligentes."
+      half-width
     >
       <template #right>
         <div class="w-full flex justify-center sm:justify-end">

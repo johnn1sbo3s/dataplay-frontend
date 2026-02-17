@@ -31,7 +31,12 @@ export const BetService = {
         }
       },
       include: {
-        fixture: true
+        fixture: {
+          include: {
+            homeTeam: true,
+            awayTeam: true
+          }
+        }
       },
       orderBy: {
         fixture: {

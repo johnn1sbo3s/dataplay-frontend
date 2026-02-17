@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 
-type NavTab = {
-  value: 'dashboard' | 'fixtures'
+interface NavTab {
+  value: 'dashboard' | 'fixtures' | 'bets'
   label: string
   icon: string
   to: string
@@ -22,6 +22,12 @@ const items = ref<NavTab[]>([
     label: 'Jogos',
     icon: 'i-lucide-calendar-range',
     to: '/fixtures'
+  },
+  {
+    value: 'bets',
+    label: 'Apostas',
+    icon: 'i-lucide-dices',
+    to: '/bets'
   }
 ])
 
