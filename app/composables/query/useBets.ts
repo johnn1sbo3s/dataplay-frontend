@@ -6,7 +6,6 @@ interface BetsParams {
 }
 
 export const useBets = (params: Ref<BetsParams>) => {
-  console.log('params: ', params)
   const config = useRuntimeConfig()
   const baseURL = config.public.apiBaseUrl
 
