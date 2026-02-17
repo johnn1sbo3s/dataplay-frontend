@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-3 items-center">
     <NuxtImg
       src="/img/empty-states/fixtures-empty-state.svg"
       class="h-[250px] w-[250px]"

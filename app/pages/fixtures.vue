@@ -74,7 +74,7 @@ function handleFixtureClick(fixture: Fixture) {
       v-else-if="!fixtures.length"
       class="flex flex-col items-center justify-center"
     >
-      <FixturesEmptyState
+      <EmptyState
         title="Nenhum jogo encontrado"
         description="Tente selecionar outra data"
       />
