@@ -58,8 +58,6 @@ function handleFixtureClick(fixture: Fixture) {
       </template>
     </PageHeader>
 
-    <FixturesFiltersSection v-model="filters" />
-
     <div
       v-if="isLoadingFixtures"
       class="w-full h-[70vh] flex items-center justify-center gap-1"
@@ -81,6 +79,11 @@ function handleFixtureClick(fixture: Fixture) {
       v-else
       class="lg:grid lg:grid-cols-2 lg:gap-3"
     >
+      <FixturesFiltersSection
+        v-model="filters"
+        class="mt-4 mb-4"
+      />
+
       <FixturesList
         :fixtures="fixtures"
         :filters="filters"

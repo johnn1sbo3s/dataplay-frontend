@@ -23,7 +23,7 @@ watch(expandFilters, (open) => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 mt-3 mb-1">
+  <div class="flex flex-col gap-4 mt-3">
     <div class="w-full flex gap-2 items-center justify-between">
       <UInput
         v-model="filters.searchString"
@@ -44,7 +44,7 @@ watch(expandFilters, (open) => {
     <Transition name="slide">
       <div
         v-if="expandFilters"
-        class="flex flex-col gap-3 mb-3"
+        class="flex flex-col gap-3 mb-2"
       >
         <div class="flex flex-col gap-3">
           <p class="text-sm">
