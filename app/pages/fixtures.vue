@@ -82,6 +82,7 @@ function handleFixtureClick(fixture: Fixture) {
       <div class="lg:grid lg:grid-cols-2 lg:gap-3">
         <FixturesList
           :fixtures="fixtures"
+          :selected-fixture="selectedFixture"
           :filters="filters"
           @item-click="handleFixtureClick"
         />

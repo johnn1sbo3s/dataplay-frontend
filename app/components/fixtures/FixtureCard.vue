@@ -4,6 +4,7 @@ import type { Fixture } from '~/types'
 
 const props = defineProps<{
   fixture: Fixture
+  selected: boolean
 }>()
 
 const emit = defineEmits(['item-click'])
@@ -51,7 +52,8 @@ const handleMouseLeave = () => {
 
 <template>
   <div
-    class="fixture-card px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
+    class="fixture-card px-4 py-3 rounded-xl bg-white/5 border hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden"
+    :class="selected ? 'border-primary/50 bg-white/10' : 'border-white/5'"
     @mousemove="handleMouseMove"
     @mouseleave="handleMouseLeave"
     @click="emit('item-click', fixture)"

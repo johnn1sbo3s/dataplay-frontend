@@ -5,6 +5,7 @@ import type { Filters } from './FiltersSection.vue'
 
 const props = defineProps<{
   fixtures: Fixture[]
+  selectedFixture: Fixture | null
   filters: Filters
 }>()
 
@@ -47,7 +48,7 @@ function filterByTimeRange(fixtures: Fixture[]) {
   <div>
     <div
       v-if="filteredFixtures.length"
-      class="glass-card rounded-2xl p-4 flex flex-col gap-3 h-full"
+      class="glass-card rounded-2xl p-4 flex flex-col gap-3 h-max"
     >
       <div class="flex gap-3 items-center justify-between mx-1">
         <p class="text-sm">
@@ -68,6 +69,7 @@ function filterByTimeRange(fixtures: Fixture[]) {
           v-for="(fixture, index) in filteredFixtures"
           :key="index"
           :fixture="fixture"
+          :selected="fixture.fixtureFqn === selectedFixture?.fixtureFqn"
           @item-click="emit('item-click', $event)"
         />
       </div>
