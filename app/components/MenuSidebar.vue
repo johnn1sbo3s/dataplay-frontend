@@ -15,6 +15,12 @@ const items = ref<NavigationMenuItem[]>([
     icon: 'i-lucide-calendar-range',
     to: '/fixtures',
     onSelect: handleItemOnSelect
+  },
+  {
+    value: 'bets',
+    label: 'Apostas',
+    icon: 'i-lucide-dices',
+    to: '/bets'
   }
 ])
 
