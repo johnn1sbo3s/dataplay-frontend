@@ -13,8 +13,7 @@ const selectedFixture = ref<Fixture | null>(null)
 const openDetails = ref(false)
 const filters = ref<Filters>({
   searchString: '',
-  timeRange: [0, 24],
-  oddsRange: [0, 1000]
+  timeRange: [0, 24]
 })
 
 const formattedDate = computed(() => selectedDate.value.toString())
@@ -28,8 +27,7 @@ const fixtures = computed<Fixture[]>(() => {
 function handleDateChange(date: CalendarDate) {
   filters.value = {
     searchString: '',
-    timeRange: [0, 24],
-    oddsRange: [0, 1000]
+    timeRange: [0, 24]
   }
   selectedFixture.value = null
   selectedDate.value = date

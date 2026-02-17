@@ -2,14 +2,12 @@
 export interface Filters {
   searchString?: string
   timeRange: [number, number]
-  oddsRange?: [0, 1000]
 }
 
 const filters = defineModel<Filters>({
   default: () => ({
     searchString: '',
-    timeRange: [0, 24],
-    oddsRange: [0, 1000]
+    timeRange: [0, 24]
   })
 })
 
@@ -33,18 +31,19 @@ watch(expandFilters, (open) => {
       />
 
       <UButton
+        class="w-28 justify-center"
         variant="soft"
         color="secondary"
         @click="expandFilters = !expandFilters"
       >
-        Mais filtros
+        {{ expandFilters ? 'Fechar' : 'Mais filtros' }}
       </UButton>
     </div>
 
     <Transition name="slide">
       <div
         v-if="expandFilters"
-        class="flex flex-col gap-3 mb-2"
+        class="flex flex-col gap-6 mb-2"
       >
         <div class="flex flex-col gap-3">
           <p class="text-sm">
