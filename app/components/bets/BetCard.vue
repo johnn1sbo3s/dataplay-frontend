@@ -55,7 +55,7 @@ const formattedGameTime = computed(() => {
 
         <FlashscoreButton
           :flashscore-id="bet.fixture.flashscoreId"
-          :minimal="isDesktop ? false : true"
+          :minimal="!isDesktop"
         />
       </div>
     </div>

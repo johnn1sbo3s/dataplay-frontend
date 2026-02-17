@@ -50,7 +50,7 @@ function handleFixtureClick(fixture: Fixture) {
     <PageHeader
       title="Jogos"
       description="Visualize confrontos, resultados e estatísticas para decisões mais inteligentes."
-      half-width
+      :half-width="isDesktop"
     >
       <template #right>
         <div class="w-full flex justify-center sm:justify-end">
