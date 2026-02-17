@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import type { CalendarDate } from '@internationalized/date'
-import type { Bet } from '~/types'
+import type { Bet, BetModel } from '~/types'
+import type { Filters, BetModelOption } from '~/components/bets/FiltersSection.vue'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 
 const selectedDate = shallowRef(iToday(getLocalTimeZone()))
-const formattedDate = computed(() => selectedDate.value.toString())
+const filters = ref<Filters>({
+  betModels: []
+})
 
+const formattedDate = computed(() => selectedDate.value.toString())
 const payload = computed(() => {
   return {
     date: formattedDate.value
@@ -13,11 +17,24 @@ const payload = computed(() => {
 })
 
 const { data: betsData, isLoading: isLoadingBets } = useBets(payload)
+const { data: betModelsData, isLoading: isLoadingBetModels } = useBetModels()
 
 const bets = computed<Bet[]>(() => {
   return betsData.value?.bets || []
 })
 
+const betModels = computed<BetModel[]>(() => {
+  return betModelsData.value?.betModels || []
+})
+
+const betModelsOptions = computed<BetModelOption[]>(() => {
+  return betModels.value.map((model) => {
+    return {
+      value: `${model.id}`,
+      label: snakeToTitleCase(model.name)
+    }
+  })
+})
 function handleDateChange(date: CalendarDate) {
   selectedDate.value = date
 }
@@ -57,9 +74,18 @@ function handleDateChange(date: CalendarDate) {
       />
     </div>
 
-    <BetsList
-      v-else
-      :bets="bets"
-    />
+    <div v-else>
+      <BetsFiltersSection
+        v-model="filters"
+        class="mt-3 mb-3 lg:w-1/3"
+        :options="betModelsOptions"
+        :loading="isLoadingBetModels"
+      />
+
+      <BetsList
+        :bets="bets"
+        :filters="filters"
+      />
+    </div>
   </div>
 </template>

@@ -8,6 +8,13 @@ export interface Team {
   name: string
 }
 
+export interface BetModel {
+  id: number
+  name: string
+  betType: BetType
+  isActive: boolean
+}
+
 export interface Odds {
   homeOdds: number
   drawOdds: number
@@ -27,6 +34,7 @@ export interface Bet {
   modelName: string
   betOdds: number
   fixture: Fixture
+  model: BetModel
   outcome?: string
 }
 

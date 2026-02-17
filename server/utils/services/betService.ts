@@ -36,7 +36,8 @@ export const BetService = {
             homeTeam: true,
             awayTeam: true
           }
-        }
+        },
+        model: true
       },
       orderBy: {
         fixture: {
