@@ -16,6 +16,7 @@ const filteredFixtures = computed(() => {
 
   fixtures = filterBySearchString(fixtures)
   fixtures = filterByTimeRange(fixtures)
+  fixtures = filterByBetsOnly(fixtures)
 
   return fixtures
 })
@@ -41,6 +42,10 @@ function filterByTimeRange(fixtures: Fixture[]) {
     const hour = new Date(f.date).getHours()
     return hour >= startHour && hour <= endHour
   })
+}
+
+function filterByBetsOnly(fixtures: Fixture[]) {
+  return fixtures.filter(f => f.bets.length)
 }
 </script>
 

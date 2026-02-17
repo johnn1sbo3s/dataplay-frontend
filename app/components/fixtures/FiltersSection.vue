@@ -2,12 +2,14 @@
 export interface Filters {
   searchString?: string
   timeRange: [number, number]
+  withBetsOnly: boolean
 }
 
 const filters = defineModel<Filters>({
   default: () => ({
     searchString: '',
-    timeRange: [0, 24]
+    timeRange: [0, 24],
+    withBetsOnly: false
   })
 })
 
@@ -16,6 +18,7 @@ const expandFilters = ref(false)
 watch(expandFilters, (open) => {
   if (!open) {
     filters.value.timeRange = [0, 24]
+    filters.value.withBetsOnly = false
   }
 })
 </script>
@@ -43,7 +46,7 @@ watch(expandFilters, (open) => {
     <Transition name="slide">
       <div
         v-if="expandFilters"
-        class="flex flex-col gap-6 mb-2"
+        class="flex flex-col gap-7 mb-2"
       >
         <div class="flex flex-col gap-3">
           <p class="text-sm">
@@ -61,6 +64,11 @@ watch(expandFilters, (open) => {
             }"
           />
         </div>
+
+        <USwitch
+          v-model="filters.withBetsOnly"
+          label="Apenas com apostas"
+        />
       </div>
     </Transition>
   </div>
