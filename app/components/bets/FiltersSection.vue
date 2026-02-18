@@ -43,6 +43,7 @@ function clearBetModelsFilter() {
       variant="ghost"
       color="secondary"
       size="sm"
+      class="cursor-pointer"
       @click="clearBetModelsFilter"
     >
       Limpar

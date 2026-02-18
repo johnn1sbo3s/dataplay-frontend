@@ -34,7 +34,7 @@ watch(expandFilters, (open) => {
       />
 
       <UButton
-        class="w-28 justify-center"
+        class="w-28 justify-center cursor-pointer"
         variant="soft"
         color="secondary"
         @click="expandFilters = !expandFilters"
