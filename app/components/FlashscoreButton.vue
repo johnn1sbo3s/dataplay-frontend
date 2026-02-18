@@ -13,7 +13,7 @@ function handleFlashscoreClick() {
   <UBadge
     variant="soft"
     color="secondary"
-    class="shrink-0"
+    class="shrink-0 cursor-pointer hover:brightness-110"
     @click="handleFlashscoreClick"
   >
     <p>
