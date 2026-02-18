@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 
+const { width } = useWindowSize()
+
 interface NavTab {
   value: 'dashboard' | 'fixtures' | 'bets'
   label: string
@@ -54,7 +56,8 @@ function resolveInitialItem() {
     :ui="{
       list: 'px-5 py-2 bg-white/5 p-1 rounded-full border border-white/5 shadow-s',
       indicator: 'rounded-full bg-primary text-background-dark shadow-lg shadow-primary/20',
-      trigger: 'cursor-pointer'
+      trigger: 'cursor-pointer',
+      label: width <= 1024 ? 'hidden' : 'block'
     }"
     class="w-full"
   />
