@@ -1,28 +1,8 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui'
+import { navigationItems } from '~/utils/constants/navigation-items'
 
 const showSidebar = useState('showSidebar')
-
-const items = ref<NavigationMenuItem[]>([
-  {
-    label: 'Dashboard',
-    icon: 'i-lucide-home',
-    to: '/',
-    onSelect: handleItemOnSelect
-  },
-  {
-    label: 'Jogos',
-    icon: 'i-lucide-calendar-range',
-    to: '/fixtures',
-    onSelect: handleItemOnSelect
-  },
-  {
-    value: 'bets',
-    label: 'Apostas',
-    icon: 'i-lucide-dices',
-    to: '/bets'
-  }
-])
+const items = navigationItems()
 
 const footerItems = [
   {
@@ -47,10 +27,6 @@ watch(showSidebar, (value) => {
 onUnmounted(() => {
   document.body.style.overflow = ''
 })
-
-function handleItemOnSelect() {
-  showSidebar.value = false
-}
 </script>
 
 <template>

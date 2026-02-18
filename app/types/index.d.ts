@@ -1,7 +1,12 @@
 import type { AvatarProps } from '@nuxt/ui'
 
-export type UserStatus = 'subscribed' | 'unsubscribed' | 'bounced'
-export type SaleStatus = 'paid' | 'failed' | 'refunded'
+export interface NavigationItem {
+  value: 'dashboard' | 'fixtures' | 'bets'
+  label: string
+  icon: string
+  to: string
+  onSelect?: () => void
+}
 
 export interface Team {
   teamFqn: string

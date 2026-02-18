@@ -1,42 +1,16 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import { navigationItems } from '~/utils/constants/navigation-items'
+import type { NavigationItem } from '~/types'
 
 const { width } = useWindowSize()
-
-interface NavTab {
-  value: 'dashboard' | 'fixtures' | 'bets'
-  label: string
-  icon: string
-  to: string
-}
-
 const route = useRoute()
-
-const items = ref<NavTab[]>([
-  {
-    value: 'dashboard',
-    label: 'Dashboard',
-    icon: 'i-lucide-home',
-    to: '/'
-  },
-  {
-    value: 'fixtures',
-    label: 'Jogos',
-    icon: 'i-lucide-calendar-range',
-    to: '/fixtures'
-  },
-  {
-    value: 'bets',
-    label: 'Apostas',
-    icon: 'i-lucide-dices',
-    to: '/bets'
-  }
-])
+const items = navigationItems()
 
 const activeItem = ref(resolveInitialItem())
 
 watch(() => activeItem.value, () => {
-  const item = items.value?.find((item: NavTab) => item.value === activeItem.value)
+  const item = items.find((item: NavigationItem) => item.value === activeItem.value)
 
   if (item) {
     navigateTo(item.to)
@@ -44,7 +18,7 @@ watch(() => activeItem.value, () => {
 })
 
 function resolveInitialItem() {
-  return items.value?.find((item: NavTab) => item.to === route.fullPath)?.value || 'dashboard'
+  return items.find((item: NavigationItem) => item.to === route.fullPath)?.value || 'dashboard'
 }
 </script>
 
