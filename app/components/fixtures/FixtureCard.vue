@@ -70,13 +70,11 @@ const handleMouseLeave = () => {
 
     <div class="relative z-10 flex flex-col gap-1">
       <div class="flex items-start gap-2 justify-between">
-        <div class="flex items-center gap-1 text-xs text-gray-400 mb-3">
-          <span class="font-semibold">
-            {{ formattedGameTime }}
-          </span>
-
-          - {{ fixture.league }}
-        </div>
+        <span class="text-xs text-gray-400 mb-3">
+          <span class="font-semibold">{{ formattedGameTime }}</span>
+          -
+          {{ fixture.league }}
+        </span>
 
         <UBadge
           v-if="fixture.bets.length > 0"
