@@ -21,7 +21,7 @@ const formattedGameTime = computed(() => {
 </script>
 
 <template>
-  <div class="bet-card px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-primary/50 transition-all cursor-pointer group relative overflow-hidden">
+  <div class="bet-card px-4 py-3 rounded-xl bg-white/5 border border-white/5 overflow-hidden">
     <div class="flex flex-col items-start gap-3">
       <div class="flex flex-col items-start gap-1 text-xs text-gray-400">
         <span class="font-semibold">
@@ -61,22 +61,3 @@ const formattedGameTime = computed(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.bet-card {
-  box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .bet-card:hover {
-    box-shadow: 0 0 20px 0 rgba(34, 211, 238, 0.2);
-  }
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .bet-card:hover {
-    box-shadow: none;
-  }
-}
-</style>
