@@ -31,7 +31,7 @@ export function navigationItems(): NavigationItem[] {
     {
       value: 'bet-models',
       label: 'Modelos',
-      icon: 'i-lucide-layout-list',
+      icon: 'i-lucide-sparkles',
       to: '/bet-models',
       onSelect: closeSidebar
     }
