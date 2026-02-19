@@ -27,6 +27,13 @@ export function navigationItems(): NavigationItem[] {
       icon: 'i-lucide-dices',
       to: '/bets',
       onSelect: closeSidebar
+    },
+    {
+      value: 'bet-models',
+      label: 'Modelos',
+      icon: 'i-lucide-layout-list',
+      to: '/bet-models',
+      onSelect: closeSidebar
     }
   ]
 }

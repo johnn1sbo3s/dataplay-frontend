@@ -34,7 +34,8 @@ function clearBetModelsFilter() {
       :loading="props.loading"
       :ui="{
         base: 'glass-panel rounded-lg',
-        content: 'glass-panel rounded-lg'
+        content: 'glass-panel rounded-lg',
+        item: 'hover:bg-primary/20 rounded-md'
       }"
       multiple
     />

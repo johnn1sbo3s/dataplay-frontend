@@ -3,7 +3,7 @@ import type { CalendarDate } from '@internationalized/date'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 import { breakpointsTailwind } from '@vueuse/core'
 import type { Fixture } from '~/types'
-import type { Filters } from '~/components/fixtures/FiltersSection.vue'
+import type { Filters } from '~/components/Fixtures/FiltersSection.vue'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isDesktop = breakpoints.greaterOrEqual('lg')

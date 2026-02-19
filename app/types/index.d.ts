@@ -1,7 +1,7 @@
 import type { AvatarProps } from '@nuxt/ui'
 
 export interface NavigationItem {
-  value: 'dashboard' | 'fixtures' | 'bets'
+  value: 'dashboard' | 'fixtures' | 'bets' | 'bet-models'
   label: string
   icon: string
   to: string

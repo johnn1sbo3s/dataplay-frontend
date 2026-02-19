@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CalendarDate } from '@internationalized/date'
 import type { Bet, BetModel } from '~/types'
-import type { Filters, BetModelOption } from '~/components/bets/FiltersSection.vue'
+import type { Filters, BetModelOption } from '~/components/Bets/FiltersSection.vue'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
 
 const selectedDate = shallowRef(iToday(getLocalTimeZone()))
