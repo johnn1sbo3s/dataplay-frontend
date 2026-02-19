@@ -1,4 +1,4 @@
-import type { BetType } from '@prisma/client'
+import type { BetType, Bet } from '@prisma/client'
 import { prisma } from '../prisma'
 import { DateTime } from 'luxon'
 
@@ -8,9 +8,30 @@ interface CreateBetModelDTO {
   isActive: boolean
 }
 
+function calculateProfitBack(bets: Bet[]) {
+  return bets.reduce((total, bet) => {
+    if (bet.outcome === 'WIN') return total + (bet.betOdds - 1)
+    if (bet.outcome === 'LOSE') return total - 1
+    return total
+  }, 0)
+}
+
+function calculateProfitLay(bets: Bet[]) {
+  return bets.reduce((total, bet) => {
+    const convertedOdds = 1 / (bet.betOdds - 1)
+    if (bet.outcome === 'WIN') return total + 0.97 * convertedOdds
+    if (bet.outcome === 'LOSE') return total - 1
+    return total
+  }, 0)
+}
+
 export const BetModelService = {
   async index() {
-    return await prisma.betModel.findMany()
+    return await prisma.betModel.findMany({
+      orderBy: {
+        name: 'asc'
+      }
+    })
   },
 
   async betsByModel(name: string, dateStr: string = '2020-01-01', zone: string = 'America/Sao_Paulo') {
@@ -41,6 +62,48 @@ export const BetModelService = {
         createdAt: 'desc'
       }
     })
+  },
+
+  async results(name: string, initialDate: string, finalDate: string) {
+    const initialDay = DateTime.fromISO(initialDate, { zone: 'America/Sao_Paulo' })
+    const finalDay = DateTime.fromISO(finalDate, { zone: 'America/Sao_Paulo' })
+    const startOfDay = initialDay.startOf('day').toUTC().toJSDate()
+    const endOfFinalDay = finalDay.endOf('day').toUTC().toJSDate()
+
+    const betModel = await prisma.betModel.findUnique({
+      where: {
+        name,
+        isActive: true
+      },
+      select: {
+        betType: true,
+        name: true,
+        bets: {
+          where: {
+            isValidationBet: false,
+            fixture: {
+              date: {
+                gte: startOfDay,
+                lt: endOfFinalDay
+              }
+            }
+          }
+        }
+      }
+    })
+
+    if (!betModel) {
+      throw new Error('Modelo não encontrado')
+    }
+
+    const totalProfit = betModel.betType === 'BACK'
+      ? calculateProfitBack(betModel.bets)
+      : calculateProfitLay(betModel.bets)
+
+    return {
+      modelName: betModel.name,
+      totalProfit
+    }
   },
 
   async create(data: CreateBetModelDTO[]) {
