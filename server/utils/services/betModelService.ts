@@ -64,7 +64,7 @@ export const BetModelService = {
     })
   },
 
-  async results(name: string, initialDate: string, finalDate: string) {
+  async metrics(name: string, initialDate: string, finalDate: string) {
     const initialDay = DateTime.fromISO(initialDate, { zone: 'America/Sao_Paulo' })
     const finalDay = DateTime.fromISO(finalDate, { zone: 'America/Sao_Paulo' })
     const startOfDay = initialDay.startOf('day').toUTC().toJSDate()

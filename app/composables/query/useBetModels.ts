@@ -27,13 +27,13 @@ export const useBetsByModel = (name: Ref<string | undefined>, date: Ref<string>)
   })
 }
 
-export const useResultsByModel = (name: Ref<string | undefined>, params?: Ref<ResultsByModelParams>) => {
+export const useMetricsByModel = (name: Ref<string | undefined>, params?: Ref<ResultsByModelParams>) => {
   const config = useRuntimeConfig()
   const baseURL = config.public.apiBaseUrl
 
   return useQuery({
-    queryKey: ['results-by-model', name, params],
-    queryFn: () => $fetch<{ results: BetModel[] }>(baseURL + `/bet-models/${name.value}/historical-metrics`, {
+    queryKey: ['metrics-by-model', name, params],
+    queryFn: () => $fetch<{ results: BetModel[] }>(baseURL + `/bet-models/${name.value}/metrics`, {
       method: 'GET',
       params: params?.value
     }),
