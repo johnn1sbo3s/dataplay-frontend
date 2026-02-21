@@ -39,7 +39,7 @@ const formattedGameTime = computed(() => {
         <div class="flex items-center gap-2 text-white/90 flex-wrap">
           <span>{{ snakeToTitleCase(bet.modelName) }}</span>
 
-          <span class="text-white/60">
+          <span class="text-white/60 -ml-1">
             @{{ (bet.betOdds).toFixed(2) }}
           </span>
 

@@ -17,7 +17,7 @@ function handleFlashscoreClick() {
     @click="handleFlashscoreClick"
   >
     <p>
-      {{ minimal ? 'Flashscore' : 'Ver no Flashscore' }}
+      {{ minimal ? 'FS' : 'Ver no Flashscore' }}
     </p>
 
     <Icon
