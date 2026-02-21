@@ -1,17 +1,18 @@
 <script setup lang="ts">
 const props = defineProps<{
-  icon: string
   title: string
   loading?: boolean
   value?: number
+  icon?: string
   type?: 'currency' | 'percentage'
   neutralIconColor?: boolean
   noDecimal?: boolean
+  noIcon?: boolean
 }>()
 
 const symbol = computed(() => {
   if (props.type === 'currency') {
-    return '$'
+    return 'un'
   }
 
   return '%'
@@ -72,6 +73,7 @@ const formattedValue = computed(() => {
         </div>
 
         <div
+          v-if="!noIcon"
           class="flex items-center justify-center p-2 bg-linear-120 backdrop-blur-2xl rounded-full"
           :class="computedIconClass"
         >

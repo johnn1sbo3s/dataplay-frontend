@@ -97,8 +97,8 @@ watch(internalSelectedDateRange, (value) => {
       />
     </div>
 
-    <div class="flex flex-col lg:grid lg:grid-cols-3 gap-3">
-      <div class="col-span-2 glass-panel p-3 rounded-2xl">
+    <div class="flex flex-col lg:grid lg:grid-cols-4 gap-5 glass-panel p-2 rounded-2xl">
+      <div class="col-span-3">
         <AreaChart
           :data="areaChartData"
           :height="height"
@@ -111,8 +111,36 @@ watch(internalSelectedDateRange, (value) => {
         />
       </div>
 
-      <div class="glass-panel p-3 rounded-2xl">
-        Chamatriz
+      <div class="grid grid-cols-2 lg:flex lg:flex-col gap-2">
+        <BetModelsMetricCard
+          title="Desvio padrão"
+          type="currency"
+          :loading="loading"
+          :value="metricsData?.stdDev"
+          no-icon
+        />
+
+        <BetModelsMetricCard
+          title="Max Drawdown"
+          type="currency"
+          :loading="loading"
+          :value="metricsData?.maxDrawdown"
+          no-icon
+        />
+
+        <BetModelsMetricCard
+          title="Média de Odds"
+          :loading="loading"
+          :value="metricsData?.avgOdds"
+          no-icon
+        />
+
+        <BetModelsMetricCard
+          title="Sharpe Ratio"
+          :loading="loading"
+          :value="metricsData?.sharpeRatio"
+          no-icon
+        />
       </div>
     </div>
   </div>

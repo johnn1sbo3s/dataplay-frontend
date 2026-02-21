@@ -40,6 +40,50 @@ function calculateSingleBetProfit(bet: Bet, betType: BetType): number {
   return 0
 }
 
+function calculateMaxDrawdown(bets: Bet[], betType: BetType): number {
+  let peak = 0
+  let maxDrawdown = 0
+  let cumulativeProfit = 0
+
+  for (const bet of bets) {
+    const profit = calculateSingleBetProfit(bet, betType)
+    cumulativeProfit += profit
+
+    if (cumulativeProfit > peak) {
+      peak = cumulativeProfit
+    }
+
+    const drawdown = peak - cumulativeProfit
+    if (drawdown > maxDrawdown) {
+      maxDrawdown = drawdown
+    }
+  }
+
+  return maxDrawdown
+}
+
+function calculateStdDev(bets: Bet[], betType: BetType): number {
+  const profits = bets.map(bet => calculateSingleBetProfit(bet, betType))
+  const mean = profits.reduce((sum, p) => sum + p, 0) / profits.length
+
+  const squaredDiffs = profits.map(p => Math.pow(p - mean, 2))
+  const variance = squaredDiffs.reduce((sum, d) => sum + d, 0) / profits.length
+
+  return Math.sqrt(variance)
+}
+
+function calculateSharpeRatio(bets: Bet[], betType: BetType): number {
+  const profits = bets.map(bet => calculateSingleBetProfit(bet, betType))
+  const mean = profits.reduce((sum, p) => sum + p, 0) / profits.length
+
+  const squaredDiffs = profits.map(p => Math.pow(p - mean, 2))
+  const variance = squaredDiffs.reduce((sum, d) => sum + d, 0) / profits.length
+  const stdDev = Math.sqrt(variance)
+
+  if (stdDev === 0) return 0
+  return mean / stdDev
+}
+
 export const BetModelService = {
   async index() {
     return await prisma.betModel.findMany({
@@ -134,6 +178,10 @@ export const BetModelService = {
       a.fixture.date.getTime() - b.fixture.date.getTime()
     )
 
+    const maxDrawdown = calculateMaxDrawdown(sortedBets, betModel.betType)
+    const stdDev = calculateStdDev(betModel.bets, betModel.betType)
+    const sharpeRatio = calculateSharpeRatio(betModel.bets, betModel.betType)
+
     let cumulativeProfit = 0
     const chartData = sortedBets.map((bet, index) => {
       const profit = calculateSingleBetProfit(bet, betModel.betType)
@@ -155,6 +203,9 @@ export const BetModelService = {
       avgOdds: Number(avgOdds),
       totalBets,
       winRate: Number(winRate),
+      maxDrawdown: Number(maxDrawdown.toFixed(2)),
+      stdDev: Number(stdDev.toFixed(2)),
+      sharpeRatio: Number(sharpeRatio.toFixed(2)),
       chartData
     }
   },

@@ -35,6 +35,9 @@ export interface MetricsByModelResponse {
   avgOdds: number
   totalBets: number
   winRate: number
+  stdDev: number
+  sharpeRatio: number
+  maxDrawdown: number
   chartData: ChartItem[]
 }
 
