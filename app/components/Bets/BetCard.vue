@@ -27,7 +27,9 @@ const formattedGameTime = computed(() => {
         <span class="font-semibold">
           {{ formattedGameTime }}
 
-          - {{ bet.fixture.homeTeam.name }} x {{ bet.fixture.awayTeam.name }}
+          - {{ bet.fixture.homeTeam.name }}
+          {{ bet.fixture.scoreHomeFt }}x{{ bet.fixture.scoreAwayFt }}
+          {{ bet.fixture.awayTeam.name }}
         </span>
 
         <p class="text-white/40">
