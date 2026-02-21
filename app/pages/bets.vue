@@ -77,15 +77,17 @@ function handleDateChange(date: CalendarDate) {
     <div v-else>
       <BetsFiltersSection
         v-model="filters"
-        class="mt-3 mb-3 lg:w-1/3"
+        class="mt-3 mb-3 lg:w-1/2"
         :options="betModelsOptions"
         :loading="isLoadingBetModels"
       />
 
-      <BetsList
-        :bets="bets"
-        :filters="filters"
-      />
+      <div class="lg:grid lg:grid-cols-2 lg:gap-3">
+        <BetsList
+          :bets="bets"
+          :filters="filters"
+        />
+      </div>
     </div>
   </div>
 </template>

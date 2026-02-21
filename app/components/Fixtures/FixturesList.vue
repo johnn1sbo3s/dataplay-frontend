@@ -70,7 +70,7 @@ function filterByBetsOnly(fixtures: Fixture[]) {
         </div>
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-2">
         <FixtureCard
           v-for="(fixture, index) in filteredFixtures"
           :key="index"
