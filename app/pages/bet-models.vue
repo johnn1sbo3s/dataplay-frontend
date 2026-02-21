@@ -81,7 +81,7 @@ function handleDateRangeChange(rangeValue: string) {
         }"
       />
 
-      <BetModelsBetsSection
+      <BetModelsDefaultMetricsSection
         v-if="selectedBetModel || isLoadingMetrics"
         :loading="isLoadingMetrics"
         :selected-date-range="selectedDateRange"

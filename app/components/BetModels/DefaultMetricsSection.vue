@@ -59,5 +59,15 @@ watch(internalSelectedDateRange, (value) => {
         no-decimal
       />
     </div>
+
+    <div class="grid grid-cols-3 gap-3">
+      <div class="col-span-2">
+        GraphQL
+      </div>
+
+      <div class="">
+        Chamatriz
+      </div>
+    </div>
   </div>
 </template>
