@@ -18,7 +18,7 @@ export default defineEventHandler(async (event) => {
   const finalDateStr = (query.finalDate as string | undefined)
     ?? '2500-01-01'
 
-  const results = await BetModelService.metrics(name, initialDateStr, finalDateStr)
+  const metrics = await BetModelService.metrics(name, initialDateStr, finalDateStr)
 
-  return { results }
+  return { metrics }
 })

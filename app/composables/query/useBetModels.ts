@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/vue-query'
-import type { BetModel, Bet } from '~/types'
+import type { BetModel, Bet, MetricsByModelResponse } from '~/types'
 
-interface ResultsByModelParams {
+interface MetricsByModelParams {
   initialDate?: string
   finalDate?: string
 }
@@ -27,13 +27,13 @@ export const useBetsByModel = (name: Ref<string | undefined>, date: Ref<string>)
   })
 }
 
-export const useMetricsByModel = (name: Ref<string | undefined>, params?: Ref<ResultsByModelParams>) => {
+export const useMetricsByModel = (name: Ref<string | undefined>, params?: Ref<MetricsByModelParams>) => {
   const config = useRuntimeConfig()
   const baseURL = config.public.apiBaseUrl
 
   return useQuery({
     queryKey: ['metrics-by-model', name, params],
-    queryFn: () => $fetch<{ results: BetModel[] }>(baseURL + `/bet-models/${name.value}/metrics`, {
+    queryFn: () => $fetch<{ metrics: MetricsByModelResponse }>(baseURL + `/bet-models/${name.value}/metrics`, {
       method: 'GET',
       params: params?.value
     }),

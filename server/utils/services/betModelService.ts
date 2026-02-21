@@ -100,9 +100,18 @@ export const BetModelService = {
       ? calculateProfitBack(betModel.bets)
       : calculateProfitLay(betModel.bets)
 
+    const yieldValue = (totalProfit / betModel.bets.length).toFixed(4)
+    const avgOdds = (betModel.bets.reduce((total, bet) => total + bet.betOdds, 0) / betModel.bets.length).toFixed(2)
+    const totalBets = betModel.bets.length
+    const winRate = (betModel.bets.filter(bet => bet.outcome === 'WIN').length / totalBets).toFixed(4)
+
     return {
       modelName: betModel.name,
-      totalProfit
+      totalProfit: Number(totalProfit.toFixed(2)),
+      yield: Number(yieldValue),
+      avgOdds: Number(avgOdds),
+      totalBets,
+      winRate: Number(winRate)
     }
   },
 

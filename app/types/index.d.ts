@@ -20,6 +20,15 @@ export interface BetModel {
   isActive: boolean
 }
 
+export interface MetricsByModelResponse {
+  modelName: string
+  totalProfit: number
+  yield: number
+  avgOdds: number
+  totalBets: number
+  winRate: number
+}
+
 export interface Odds {
   homeOdds: number
   drawOdds: number
