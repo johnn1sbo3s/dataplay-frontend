@@ -10,7 +10,7 @@ interface BetModelOption {
 const selectedBetModel = ref<BetModelOption | undefined>(undefined)
 const selectedDateRange = ref('all')
 const initialDate = ref(DateTime.now().minus({ years: 10 }).toFormat('yyyy-MM-dd'))
-const finalDate = ref(DateTime.now().toFormat('yyyy-MM-dd'))
+const finalDate = ref(DateTime.now().minus({ days: 1 }).toFormat('yyyy-MM-dd'))
 
 const selectedBetModelName = computed(() => selectedBetModel.value?.name)
 const metricsPayload = computed(() => ({
@@ -41,20 +41,20 @@ const betModelsOptions = computed(() => {
 })
 
 function handleDateRangeChange(rangeValue: string) {
-  const today = DateTime.now()
+  const now = DateTime.now().minus({ days: 1 })
 
   switch (rangeValue) {
     case 'all':
-      initialDate.value = today.minus({ years: 10 }).toFormat('yyyy-MM-dd')
-      finalDate.value = today.toFormat('yyyy-MM-dd')
+      initialDate.value = now.minus({ years: 10 }).toFormat('yyyy-MM-dd')
+      finalDate.value = now.toFormat('yyyy-MM-dd')
       break
     case '30d':
-      initialDate.value = today.minus({ days: 30 }).toFormat('yyyy-MM-dd')
-      finalDate.value = today.toFormat('yyyy-MM-dd')
+      initialDate.value = now.minus({ days: 30 }).toFormat('yyyy-MM-dd')
+      finalDate.value = now.toFormat('yyyy-MM-dd')
       break
     case '15d':
-      initialDate.value = today.minus({ days: 15 }).toFormat('yyyy-MM-dd')
-      finalDate.value = today.toFormat('yyyy-MM-dd')
+      initialDate.value = now.minus({ days: 15 }).toFormat('yyyy-MM-dd')
+      finalDate.value = now.toFormat('yyyy-MM-dd')
       break
   }
 }
