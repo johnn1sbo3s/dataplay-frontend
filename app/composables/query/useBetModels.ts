@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/vue-query'
 import type { BetModel, Bet, MetricsByModelResponse } from '~/types'
 
 interface MetricsByModelParams {
-  initialDate?: string
-  finalDate?: string
+  initialDate: string
+  finalDate: string
 }
 
 export const useBetModels = () => {
@@ -27,7 +27,7 @@ export const useBetsByModel = (name: Ref<string | undefined>, date: Ref<string>)
   })
 }
 
-export const useMetricsByModel = (name: Ref<string | undefined>, params?: Ref<MetricsByModelParams>) => {
+export const useMetricsByModel = (name: Ref<string | undefined>, params: Ref<MetricsByModelParams>) => {
   const config = useRuntimeConfig()
   const baseURL = config.public.apiBaseUrl
 

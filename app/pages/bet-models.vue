@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { DateTime } from 'luxon'
+
 interface BetModelOption {
   value: number
   label: string
@@ -6,14 +8,21 @@ interface BetModelOption {
 }
 
 const selectedBetModel = ref<BetModelOption | undefined>(undefined)
+const selectedDateRange = ref('all')
+const initialDate = ref(DateTime.now().minus({ years: 10 }).toFormat('yyyy-MM-dd'))
+const finalDate = ref(DateTime.now().toFormat('yyyy-MM-dd'))
 
 const selectedBetModelName = computed(() => selectedBetModel.value?.name)
+const metricsPayload = computed(() => ({
+  initialDate: initialDate.value,
+  finalDate: finalDate.value
+}))
 
 const { data: betModelsData, isLoading: isLoadingBetModels } = useBetModels()
 const {
   data: metricsData,
   isLoading: isLoadingMetrics
-} = useMetricsByModel(selectedBetModelName)
+} = useMetricsByModel(selectedBetModelName, metricsPayload)
 
 const betModelsOptions = computed(() => {
   if (!betModelsData.value?.betModels) {
@@ -30,6 +39,25 @@ const betModelsOptions = computed(() => {
       }
     })
 })
+
+function handleDateRangeChange(rangeValue: string) {
+  const today = DateTime.now()
+
+  switch (rangeValue) {
+    case 'all':
+      initialDate.value = today.minus({ years: 10 }).toFormat('yyyy-MM-dd')
+      finalDate.value = today.toFormat('yyyy-MM-dd')
+      break
+    case '30d':
+      initialDate.value = today.minus({ days: 30 }).toFormat('yyyy-MM-dd')
+      finalDate.value = today.toFormat('yyyy-MM-dd')
+      break
+    case '15d':
+      initialDate.value = today.minus({ days: 15 }).toFormat('yyyy-MM-dd')
+      finalDate.value = today.toFormat('yyyy-MM-dd')
+      break
+  }
+}
 </script>
 
 <template>
@@ -39,7 +67,7 @@ const betModelsOptions = computed(() => {
       description="Visualize as saídas dos modelos preditivos para cada dia, além de resultados históricos."
     />
 
-    <main class="flex flex-col gap-6">
+    <main class="flex flex-col gap-4">
       <USelectMenu
         v-model="selectedBetModel"
         placeholder="Selecione um modelo..."
@@ -54,9 +82,11 @@ const betModelsOptions = computed(() => {
       />
 
       <BetModelsBetsSection
-        v-if="selectedBetModel"
-        :metrics-data="metricsData?.metrics"
+        v-if="selectedBetModel || isLoadingMetrics"
         :loading="isLoadingMetrics"
+        :selected-date-range="selectedDateRange"
+        :metrics-data="metricsData?.metrics"
+        @update:selected-date-range="handleDateRangeChange"
       />
     </main>
   </div>

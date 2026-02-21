@@ -2,6 +2,7 @@
 const props = defineProps<{
   icon: string
   title: string
+  loading?: boolean
   value?: number
   type?: 'currency' | 'percentage'
   neutralIconColor?: boolean
@@ -43,34 +44,43 @@ const formattedValue = computed(() => {
 </script>
 
 <template>
-  <UCard :ui="{ root: 'glass-panel rounded-3xl' }">
-    <div class="flex items-center justify-between gap-2">
-      <div class="flex flex-col gap-1">
-        <p class="text-xs text-white/50 font-medium uppercase">
-          {{ title }}
-        </p>
-
-        <span class="text-white/90 text-2xl font-semibold">
-          {{ formattedValue }}
-
-          <span
-            v-if="type"
-            class="-ml-0.5 text-lg text-white/60"
-          >
-            {{ symbol }}
-          </span>
-        </span>
-      </div>
-
-      <div
-        class="flex items-center justify-center p-2 bg-linear-120 backdrop-blur-2xl rounded-full"
-        :class="computedIconClass"
-      >
-        <UIcon
-          size="24"
-          :name="icon"
-        />
-      </div>
+  <div>
+    <div v-if="loading">
+      <USkeleton class="h-[85px] sm:h-[100px] rounded-3xl" />
     </div>
-  </UCard>
+
+    <UCard
+      v-else
+      :ui="{ root: 'glass-panel rounded-3xl' }"
+    >
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex flex-col gap-1">
+          <p class="text-xs text-white/50 font-medium uppercase">
+            {{ title }}
+          </p>
+
+          <span class="text-white/90 text-2xl font-semibold">
+            {{ formattedValue }}
+
+            <span
+              v-if="type"
+              class="-ml-0.5 text-lg text-white/60"
+            >
+              {{ symbol }}
+            </span>
+          </span>
+        </div>
+
+        <div
+          class="flex items-center justify-center p-2 bg-linear-120 backdrop-blur-2xl rounded-full"
+          :class="computedIconClass"
+        >
+          <UIcon
+            size="24"
+            :name="icon"
+          />
+        </div>
+      </div>
+    </UCard>
+  </div>
 </template>

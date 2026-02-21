@@ -12,11 +12,15 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event)
 
-  const initialDateStr = (query.initialDate as string | undefined)
-    ?? '2020-01-01'
+  if (!query.initialDate || !query.finalDate) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Parâmetros "initialDate" e "finalDate" são obrigatórios'
+    })
+  }
 
-  const finalDateStr = (query.finalDate as string | undefined)
-    ?? '2500-01-01'
+  const initialDateStr = query.initialDate as string
+  const finalDateStr = query.finalDate as string
 
   const metrics = await BetModelService.metrics(name, initialDateStr, finalDateStr)
 

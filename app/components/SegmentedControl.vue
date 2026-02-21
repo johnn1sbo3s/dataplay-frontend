@@ -25,6 +25,7 @@ function resolveInitialItem() {
 <template>
   <UTabs
     v-model="activeItem"
+    class="w-full"
     :content="false"
     :items="items"
     :ui="{
@@ -33,6 +34,5 @@ function resolveInitialItem() {
       trigger: 'cursor-pointer',
       label: width <= 1024 ? 'hidden' : 'block'
     }"
-    class="w-full"
   />
 </template>
