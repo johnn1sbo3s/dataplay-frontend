@@ -23,7 +23,7 @@ const computedIconClass = computed(() => {
   }
 
   if (props.value >= 0) {
-    return 'from-green-700/30 to-green-900/30 text-green-500/70'
+    return 'from-primary-700/30 to-primary-900/30 text-primary-500/70'
   }
 
   return 'from-red-700/30 to-red-900/30 text-red-500/70'

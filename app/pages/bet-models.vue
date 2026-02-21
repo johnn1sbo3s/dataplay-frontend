@@ -75,10 +75,15 @@ function handleDateRangeChange(rangeValue: string) {
         :items="betModelsOptions"
         :loading="isLoadingBetModels"
         :ui="{
-          base: 'glass-panel rounded-lg',
-          content: 'glass-panel rounded-lg',
+          base: 'glass-panel rounded-xl',
+          content: 'glass-panel rounded-xl',
           item: 'hover:bg-primary/20 rounded-md'
         }"
+      />
+
+      <USeparator
+        v-if="selectedBetModel"
+        class="my-2"
       />
 
       <BetModelsDefaultMetricsSection

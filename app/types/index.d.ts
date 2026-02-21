@@ -20,6 +20,14 @@ export interface BetModel {
   isActive: boolean
 }
 
+export interface ChartItem {
+  betNumber: number
+  date: string
+  profit: number
+  cumulativeProfit: number
+  outcome: string
+}
+
 export interface MetricsByModelResponse {
   modelName: string
   totalProfit: number
@@ -27,6 +35,7 @@ export interface MetricsByModelResponse {
   avgOdds: number
   totalBets: number
   winRate: number
+  chartData: ChartItem[]
 }
 
 export interface Odds {

@@ -25,6 +25,21 @@ function calculateProfitLay(bets: Bet[]) {
   }, 0)
 }
 
+function calculateSingleBetProfit(bet: Bet, betType: BetType): number {
+  if (bet.outcome === 'DRAW') return 0
+
+  if (betType === 'BACK') {
+    if (bet.outcome === 'WIN') return bet.betOdds - 1
+    if (bet.outcome === 'LOSE') return -1
+  } else {
+    const convertedOdds = 1 / (bet.betOdds - 1)
+    if (bet.outcome === 'WIN') return 0.97 * convertedOdds
+    if (bet.outcome === 'LOSE') return -1
+  }
+
+  return 0
+}
+
 export const BetModelService = {
   async index() {
     return await prisma.betModel.findMany({
@@ -81,10 +96,20 @@ export const BetModelService = {
         bets: {
           where: {
             isValidationBet: false,
+            outcome: {
+              not: 'DRAW'
+            },
             fixture: {
               date: {
                 gte: startOfDay,
                 lt: endOfFinalDay
+              }
+            }
+          },
+          include: {
+            fixture: {
+              select: {
+                date: true
               }
             }
           }
@@ -105,13 +130,32 @@ export const BetModelService = {
     const totalBets = betModel.bets.length
     const winRate = (betModel.bets.filter(bet => bet.outcome === 'WIN').length / totalBets).toFixed(4)
 
+    const sortedBets = [...betModel.bets].sort((a, b) =>
+      a.fixture.date.getTime() - b.fixture.date.getTime()
+    )
+
+    let cumulativeProfit = 0
+    const chartData = sortedBets.map((bet, index) => {
+      const profit = calculateSingleBetProfit(bet, betModel.betType)
+      cumulativeProfit += profit
+
+      return {
+        betNumber: index + 1,
+        date: DateTime.fromJSDate(bet.fixture.date).setZone('America/Sao_Paulo').toISODate(),
+        profit: Number(profit.toFixed(2)),
+        cumulativeProfit: Number(cumulativeProfit.toFixed(2)),
+        outcome: bet.outcome
+      }
+    })
+
     return {
       modelName: betModel.name,
       totalProfit: Number(totalProfit.toFixed(2)),
       yield: Number(yieldValue),
       avgOdds: Number(avgOdds),
       totalBets,
-      winRate: Number(winRate)
+      winRate: Number(winRate),
+      chartData
     }
   },
 

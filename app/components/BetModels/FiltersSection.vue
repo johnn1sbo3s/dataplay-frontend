@@ -24,7 +24,6 @@ const items = [
   <div>
     <UTabs
       v-model="selectedDateRange"
-      class="w-full md:w-max"
       :content="false"
       :items="items"
       :ui="{

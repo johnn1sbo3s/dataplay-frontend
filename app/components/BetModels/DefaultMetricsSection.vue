@@ -1,5 +1,17 @@
 <script setup lang="ts">
 import type { MetricsByModelResponse } from '~/types'
+import { breakpointsTailwind } from '@vueuse/core'
+
+interface AreaChartItem {
+  betNumber: number
+  cumulativeProfit: number
+}
+
+defineOptions({
+  tags: ['areacharts', 'catmullRom']
+})
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
 
 const props = defineProps<{
   selectedDateRange: string
@@ -9,7 +21,29 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:selectedDateRange'])
 
+const categories = {
+  cumulativeProfit: {
+    name: 'Lucro Acumulado',
+    color: '#00bc7d'
+  }
+}
+
 const internalSelectedDateRange = ref<string>(props.selectedDateRange)
+
+const height = computed(() => {
+  return breakpoints.greaterOrEqual('lg').value ? 400 : 250
+})
+
+const areaChartData = computed<AreaChartItem[]>(() => {
+  if (!props.metricsData) return []
+
+  return props.metricsData?.chartData.map((bet) => {
+    return {
+      betNumber: bet.betNumber,
+      cumulativeProfit: bet.cumulativeProfit
+    }
+  })
+})
 
 watch(() => props.selectedDateRange, (value) => {
   internalSelectedDateRange.value = value
@@ -21,31 +55,34 @@ watch(internalSelectedDateRange, (value) => {
 </script>
 
 <template>
-  <div class="glass-panel p-3 rounded-2xl flex flex-col gap-4">
-    <BetModelsFiltersSection v-model="internalSelectedDateRange" />
+  <div class="glass-panel p-3 rounded-2xl flex flex-col gap-3">
+    <BetModelsFiltersSection
+      v-model="internalSelectedDateRange"
+      class="mb-2 w-full md:w-1/3"
+    />
 
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       <BetModelsMetricCard
         icon="i-lucide-dollar-sign"
         title="Lucro total"
-        :loading="loading"
         type="currency"
+        :loading="loading"
         :value="metricsData?.totalProfit"
       />
 
       <BetModelsMetricCard
         :icon="(metricsData?.yield || 0) >= 0 ? 'i-lucide-trending-up' : 'i-lucide-trending-down'"
         title="ROI"
-        :loading="loading"
         type="percentage"
+        :loading="loading"
         :value="(metricsData?.yield || 0) * 100"
       />
 
       <BetModelsMetricCard
         icon="i-lucide-check"
         title="Win Rate"
-        :loading="loading"
         type="percentage"
+        :loading="loading"
         :value="(metricsData?.winRate || 0) * 100"
         neutral-icon-color
       />
@@ -60,12 +97,21 @@ watch(internalSelectedDateRange, (value) => {
       />
     </div>
 
-    <div class="grid grid-cols-3 gap-3">
-      <div class="col-span-2">
-        GraphQL
+    <div class="flex flex-col lg:grid lg:grid-cols-3 gap-3">
+      <div class="col-span-2 glass-panel p-3 rounded-2xl">
+        <AreaChart
+          :data="areaChartData"
+          :height="height"
+          :categories="categories"
+          :y-label="'Lucro'"
+          :gradient-stops="[{
+            offset: '0.4',
+            stopOpacity: 0.3
+          }]"
+        />
       </div>
 
-      <div class="">
+      <div class="glass-panel p-3 rounded-2xl">
         Chamatriz
       </div>
     </div>
