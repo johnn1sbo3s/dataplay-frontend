@@ -57,6 +57,8 @@ watch(internalSelectedDateRange, (value) => {
       class="mb-2 w-full md:w-1/3"
     />
 
+    <USeparator class="mb-2" />
+
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
       <BetModelsMetricCard
         icon="i-lucide-dollar-sign"
