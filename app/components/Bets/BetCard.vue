@@ -3,7 +3,7 @@ import type { Bet } from '~/types'
 import { breakpointsTailwind } from '@vueuse/core'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
-const isDesktop = breakpoints.greaterOrEqual('lg')
+const isMobile = ref(breakpoints.smallerOrEqual('sm'))
 
 const props = defineProps<{
   bet: Bet
@@ -57,7 +57,7 @@ const formattedGameTime = computed(() => {
 
         <FlashscoreButton
           :flashscore-id="bet.fixture.flashscoreId"
-          :minimal="!isDesktop"
+          :minimal="isMobile"
         />
       </div>
     </div>

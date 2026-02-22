@@ -7,10 +7,6 @@ interface AreaChartItem {
   cumulativeProfit: number
 }
 
-defineOptions({
-  tags: ['areacharts', 'catmullRom']
-})
-
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
 const props = defineProps<{

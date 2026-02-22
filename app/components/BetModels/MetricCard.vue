@@ -52,7 +52,7 @@ const formattedValue = computed(() => {
 
     <UCard
       v-else
-      :ui="{ root: 'glass-panel rounded-3xl' }"
+      :ui="{ root: 'glass-card rounded-3xl' }"
     >
       <div class="flex items-center justify-between gap-2">
         <div class="flex flex-col gap-1">
@@ -78,7 +78,7 @@ const formattedValue = computed(() => {
           :class="computedIconClass"
         >
           <UIcon
-            size="24"
+            size="20"
             :name="icon"
           />
         </div>
