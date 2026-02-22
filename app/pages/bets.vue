@@ -3,6 +3,10 @@ import type { CalendarDate } from '@internationalized/date'
 import type { Bet, BetModel } from '~/types'
 import type { Filters, BetModelOption } from '~/components/Bets/FiltersSection.vue'
 import { getLocalTimeZone, today as iToday } from '@internationalized/date'
+import { breakpointsTailwind } from '@vueuse/core'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isDesktop = breakpoints.greaterOrEqual('lg')
 
 const selectedDate = shallowRef(iToday(getLocalTimeZone()))
 const filters = ref<Filters>({
@@ -45,6 +49,7 @@ function handleDateChange(date: CalendarDate) {
     <PageHeader
       title="Apostas"
       description="Visualize as saídas dos modelos preditivos para cada dia."
+      :half-width="isDesktop"
     >
       <template #right>
         <div class="w-full flex justify-center sm:justify-end">

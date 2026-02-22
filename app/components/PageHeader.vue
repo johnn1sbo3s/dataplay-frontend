@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <div
     class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 sm:gap-4 lg:gap-8"
-    :class="{ 'lg: w-1/2': halfWidth }"
+    :class="{ 'lg:w-1/2': halfWidth }"
   >
     <div>
       <h1 class="text-3xl font-bold text-neutral-200 tracking-tight mb-1">
