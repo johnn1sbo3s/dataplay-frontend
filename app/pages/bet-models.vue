@@ -90,11 +90,6 @@ function handleDateRangeChange(rangeValue: string) {
         }"
       />
 
-      <USeparator
-        v-if="selectedBetModel "
-        class="my-2 block lg:hidden"
-      />
-
       <BetModelsDefaultMetricsSection
         v-if="selectedBetModel || isLoadingMetrics"
         :loading="isLoadingMetrics"
