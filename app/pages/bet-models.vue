@@ -18,7 +18,12 @@ const metricsPayload = computed(() => ({
   finalDate: finalDate.value
 }))
 
-const { data: betModelsData, isLoading: isLoadingBetModels } = useBetModels()
+const {
+  data: betModelsData,
+  isLoading: isLoadingBetModels,
+  isSuccess: isBetModelsSuccess
+} = useBetModels()
+
 const {
   data: metricsData,
   isLoading: isLoadingMetrics
@@ -39,6 +44,10 @@ const betModelsOptions = computed(() => {
       }
     })
 })
+
+watch(isBetModelsSuccess, () => {
+  selectedBetModel.value = betModelsOptions.value[0]
+}, { immediate: true })
 
 function handleDateRangeChange(rangeValue: string) {
   const now = DateTime.now().minus({ days: 1 })
